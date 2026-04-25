@@ -10,7 +10,7 @@
 4. Claw Codeの`OPENAI_BASE_URL`をローカルサーバーに向けて起動する。
 
 !!! note
-    ローカルモデルは有料APIクレジットなしで使えますが、CPU、RAM、できればVRAMが必要です。大きいモデルほど遅くなり、必要メモリも増えます。
+    ローカルモデルは有料APIクレジットなしで使えますが、CPU、RAM、できれば高性能なGPUと大容量のVRAMが必要です。大きいモデルほど遅くなり、必要メモリも増えます。
 
 ## 推奨フォルダ構成
 
@@ -21,7 +21,7 @@
 ├── llama.cpp\
 │   └── llama-server.exe
 └── models\
-    └── qwen2.5-coder-7b\
+    └── qwen3.6-35b\
         └── model.gguf
 ```
 
@@ -43,8 +43,8 @@ Windowsで`llama.cpp`を導入する方法は、大きく分けて2つありま�
 1. llama.cppのリリースページを開きます。
    - https://github.com/ggml-org/llama.cpp/releases
 2. 自分の環境に合うWindows用のアーカイブをダウンロードします。
-   - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。
-   - NVIDIA GPUを使う場合は、CUDA対応のWindows用アーカイブがあれば、自分のCUDAドライバーに合うものを選びます。
+   - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。`llama-(ランダム文字列)-bin-win-cpu-x64.zip`のようなファイル名です
+   - NVIDIA GPUを使う場合は、CUDA対応のWindows用アーカイブがあれば、自分のCUDAドライバーに合うものを選びます。`cudart-llama-bin-win-cuda-12.4-x64.zip`や`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
 3. ダウンロードしたアーカイブを展開します。
 4. 展開したフォルダを次の場所にコピーまたは移動します。
 
@@ -90,9 +90,9 @@ cmake --build build --config Release
 Get-ChildItem -Recurse -Filter llama-server.exe
 ```
 
-## 2. huggingface-cliをインストールする
+## 2. hfをインストールする
 
-`huggingface-cli`はPythonパッケージの`huggingface_hub`に含まれています。
+`hf`はPythonパッケージの`huggingface_hub`に含まれています。
 
 ```powershell
 python -m pip install -U huggingface_hub
@@ -101,10 +101,10 @@ python -m pip install -U huggingface_hub
 コマンドが使えるか確認します。
 
 ```powershell
-huggingface-cli --help
+hf --help
 ```
 
-`huggingface-cli`が見つからない場合は、Windows Terminalを閉じて開き直してから再度試してください。
+`hf`が見つからない場合は、Windows Terminalを閉じて開き直してから再度試してください。
 
 ## 3. 必要に応じてHugging Faceへログインする
 
@@ -116,7 +116,7 @@ huggingface-cli --help
 4. PowerShellでログインします。
 
 ```powershell
-huggingface-cli login
+hf login
 ```
 
 プロンプトが表示されたら、アクセストークンを貼り付けます。
@@ -132,19 +132,19 @@ huggingface-cli login
 
 - **形式**: ファイル名が`.gguf`で終わるものを選びます。
 - **Instruction tuning**: Claw Code用途では`Instruct`または`Coder`系のモデルが向いています。
-- **量子化**: ローカル用途では`Q4_K_M`がバランスのよい選択肢です。
-- **メモリ**: 大きいモデルほど多くのRAMまたはVRAMが必要です。
+- **量子化**: ローカル用途では`Q4_K_M`がバランスのよい選択肢です。量子化の数字が小さいほど、使用メモリが少なくなります。Q8はメモリを多く使用し、Q4はメモリが少なくなります。
+- **メモリ**: 大きいモデルほど多くのRAMまたはVRAMが必要です。モデルのサイズは、27bや35b、500Mなどの表記になっています。
 
 Hugging Faceでは、たとえば次のようなキーワードで探します。
 
-- Qwen Coder GGUF models
-- DeepSeek Coder GGUF models
-- Llama Instruct GGUF models
-- Mistral or Mixtral Instruct GGUF models
+- Qwen 3.6 GGUF
+- DeepSeek R1 GGUF
+- Distill GGUF
+- Mistral or Mixtral Instruct GGUF
 
 最初の動作確認では、7Bまたは8B程度の`Instruct`/`Coder`モデルで、`Q4_K_M`量子化のものを選ぶと扱いやすいです。
 
-## 5. huggingface-cliでモデルをダウンロードする
+## 5. hfでモデルをダウンロードする
 
 モデル保存用フォルダを作成します。
 
@@ -156,7 +156,7 @@ Set-Location "$env:USERPROFILE\Documents\local-ai\models"
 特定のGGUFファイルをダウンロードします。
 
 ```powershell
-huggingface-cli download REPOSITORY_NAME FILE_NAME.gguf --local-dir .\MODEL_FOLDER
+hf download REPOSITORY_NAME FILE_NAME.gguf --local-dir .\MODEL_FOLDER
 ```
 
 置き換える値は次のとおりです。
@@ -168,19 +168,19 @@ huggingface-cli download REPOSITORY_NAME FILE_NAME.gguf --local-dir .\MODEL_FOLD
 例:
 
 ```powershell
-huggingface-cli download bartowski/Qwen2.5-Coder-7B-Instruct-GGUF Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf --local-dir .\qwen2.5-coder-7b
+hf download unsloth/Qwen3.6-35B-A3B-GGUF Qwen3.6-35B-A3B-UD-IQ4_XS.gguf --local-dir .\qwen3.6-35b-iq4
 ```
 
 ダウンロード後、ファイルが存在することを確認します。
 
 ```powershell
-Get-ChildItem .\qwen2.5-coder-7b -Filter *.gguf
+Get-ChildItem .\qwen3.6-35b-iq4 -Filter *.gguf
 ```
 
 扱いやすいように、モデルファイル名を`model.gguf`へ変更しておくこともできます。
 
 ```powershell
-Rename-Item .\qwen2.5-coder-7b\Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf model.gguf
+Rename-Item .\qwen3.6-35b-iq4\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf model.gguf
 ```
 
 ## 6. llama-server.exeを起動する
@@ -195,10 +195,10 @@ Set-Location "$env:USERPROFILE\Documents\local-ai\llama.cpp"
 
 ```powershell
 .\llama-server.exe `
-  -m "$env:USERPROFILE\Documents\local-ai\models\qwen2.5-coder-7b\model.gguf" `
+  -m "$env:USERPROFILE\Documents\local-ai\models\qwen3.6-35b-iq4\model.gguf" `
   --host 127.0.0.1 `
   --port 8000 `
-  --alias qwen2.5-coder-7b-local `
+  --alias qwen3.6-35b-iq4-local `
   -c 8192
 ```
 
@@ -224,7 +224,7 @@ Invoke-RestMethod `
   -Uri "http://127.0.0.1:8000/v1/chat/completions" `
   -Method Post `
   -ContentType "application/json" `
-  -Body '{"model":"qwen2.5-coder-7b-local","messages":[{"role":"user","content":"Say hello in one sentence."}]}'
+  -Body '{"model":"qwen3.6-35b-iq4-local","messages":[{"role":"user","content":"Say hello in one sentence."}]}'
 ```
 
 正常に動作していれば、ローカルモデルからの応答が返ります。
@@ -239,23 +239,24 @@ $env:OPENAI_BASE_URL = "http://127.0.0.1:8000/v1"
 ```
 
 その後、`llama-server.exe`起動時に指定したモデルエイリアスを使ってClaw Codeを起動します。
+プロバイダー名はAPIの種別特定に使われるので`openai/`を付与します。
 
 Debugビルドの場合:
 
 ```powershell
-.\target\debug\claw.exe --model "qwen2.5-coder-7b-local"
+.\target\debug\claw.exe --model "openai/qwen3.6-35b-iq4-local"
 ```
 
 Releaseビルドの場合:
 
 ```powershell
-.\target\release\claw.exe --model "qwen2.5-coder-7b-local"
+.\target\release\claw.exe --model "openai/qwen3.6-35b-iq4-local"
 ```
 
 すでに`claw.exe`へ`Path`を通している場合は、次のように実行できます。
 
 ```powershell
-claw --model "qwen2.5-coder-7b-local"
+claw --model "openai/qwen3.6-35b-iq4-local"
 ```
 
 ## トラブルシューティング

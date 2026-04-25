@@ -29,11 +29,12 @@ OpenRouterは、複数のモデルプロバイダーをOpenAI互換APIとして�
 
 OpenRouterでは、有料モデルの利用にアカウントクレジットを使います。
 
-1. OpenRouterのダッシュボードを開きます。
-2. **Credits**、**Billing**、または**Settings**に相当するページを開きます。
-3. クレジットを追加または購入する項目を選びます。
+1. OpenRouterのページを開いたら右上の**Personal**をマウスホバーします。
+2. **Credits**を開きます。
+3. **Add Credits**を選びます。
 4. 追加したい金額を選びます。
-5. クレジットカードで支払います。
+5. 住所と名前（決済名義）とクレジット情報を追加します。Stripeに保存済みの場合は簡単に追加できます。
+5. クレジットカードで支払います。うまく行かない場合は**Use one-time payment methods**で決済します。
 6. 支払い後、クレジット残高が増えていることを確認します。
 
 !!! note
@@ -44,9 +45,9 @@ OpenRouterでは、有料モデルの利用にアカウントクレジットを�
 
 ## 3. APIキーを作成する
 
-1. OpenRouterのダッシュボードを開きます。
-2. **Keys**または**API Keys**ページを開きます。
-3. 新しいAPIキーを作成します。
+1. 画面右上の**Personal**をクリックします。
+2. 左のバーにある**API Keys**ページを開きます。
+3. **Create***ボタンを押して新しいAPIキーを作成します。目的によって名前を付与します。
 4. 生成されたキーをコピーします。
 5. パスワードマネージャーなど、安全な場所へ保存します。
 
@@ -87,12 +88,12 @@ OpenRouterのモデルページで、次の点を確認します。
 表示される可能性があるモデル名の例:
 
 ```txt
-anthropic/claude-sonnet-4.5
-openai/gpt-4.1
-openai/gpt-4.1-mini
-google/gemini-2.5-pro
-qwen/qwen3-coder
-x-ai/grok-code-fast-1
+anthropic/claude-opus-4.7
+openai/gpt-5.5
+openai/gpt-5.4-mini
+google/gemini-3.1-pro-preview
+qwen/qwen3.6-plus
+x-ai/grok-4.20
 ```
 
 モデル起動に失敗する場合は、OpenRouterで正確なモデルslugを確認し、アカウントに十分なクレジットがあるかも確認してください。
@@ -131,13 +132,13 @@ Releaseビルドの場合:
 例:
 
 ```powershell
-.\target\release\claw.exe --model "anthropic/claude-sonnet-4.5"
+.\target\release\claw.exe --model "anthropic/claude-opus-4.7"
 ```
 
 すでに`claw.exe`へ`Path`を通している場合は、次のように実行できます。
 
 ```powershell
-claw --model "anthropic/claude-sonnet-4.5"
+claw --model "anthropic/claude-opus-4.7"
 ```
 
 ## 7. 必要に応じて設定を永続化する
