@@ -97,7 +97,7 @@ winget install Git.Git --source winget
 3. クローンしたリポジトリへ移動します。
 
    ```powershell
-   Set-Location .\claw-code
+   Set-Location .\claw-code\rust
    ```
 
 ### 4. Rustをインストールする
@@ -112,7 +112,7 @@ winget install Rustlang.Rustup --source winget
 
 ### 5. ソースコードからClaw Codeをビルドする
 
-クローンした `claw-code` リポジトリ内で、次のどちらかのコマンドを実行します。
+クローンした `claw-code\rust` ディレクトリ内で、次のどちらかのコマンドを実行します。
 
 デバッグビルドの場合:
 
@@ -217,7 +217,7 @@ OpenAI互換APIエンドポイントの例:
 デバッグビルドの場合:
 
 ```powershell
-$newPath = "$env:USERPROFILE\Documents\claw-code\target\debug"
+$newPath = "$env:USERPROFILE\Documents\claw-code\rust\target\debug"
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 [Environment]::SetEnvironmentVariable("Path", "$oldPath;$newPath", "User")
 ```
@@ -225,7 +225,7 @@ $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 リリースビルドの場合は、`target\release` を使います。
 
 ```powershell
-$newPath = "$env:USERPROFILE\Documents\claw-code\target\release"
+$newPath = "$env:USERPROFILE\Documents\claw-code\rust\target\release"
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 [Environment]::SetEnvironmentVariable("Path", "$oldPath;$newPath", "User")
 ```

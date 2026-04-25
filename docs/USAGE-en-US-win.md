@@ -97,7 +97,7 @@ After installation, restart Windows Terminal.
 3. Move into the cloned repository:
 
    ```powershell
-   Set-Location .\claw-code
+   Set-Location .\claw-code\rust
    ```
 
 ### 4. Install Rust
@@ -112,7 +112,7 @@ After installation, restart Windows Terminal.
 
 ### 5. Build Claw Code from source
 
-From the cloned `claw-code` repository, run one of the following commands.
+From the cloned `claw-code\rust` directory, run one of the following commands.
 
 For a debug build:
 
@@ -217,7 +217,7 @@ If you want to run `claw` from any directory, add the build output directory to 
 For a debug build:
 
 ```powershell
-$newPath = "$env:USERPROFILE\Documents\claw-code\target\debug"
+$newPath = "$env:USERPROFILE\Documents\claw-code\rust\target\debug"
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 [Environment]::SetEnvironmentVariable("Path", "$oldPath;$newPath", "User")
 ```
@@ -225,7 +225,7 @@ $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 For a release build, use `target\release` instead:
 
 ```powershell
-$newPath = "$env:USERPROFILE\Documents\claw-code\target\release"
+$newPath = "$env:USERPROFILE\Documents\claw-code\rust\target\release"
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 [Environment]::SetEnvironmentVariable("Path", "$oldPath;$newPath", "User")
 ```
