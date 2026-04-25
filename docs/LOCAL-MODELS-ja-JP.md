@@ -5,9 +5,10 @@
 目標は次の流れです。
 
 1. `llama.cpp`を導入する。
-2. `huggingface-cli`でHugging FaceからGGUFモデルをダウンロードする。
-3. `llama-server.exe`をローカルで起動する。
-4. Claw Codeの`OPENAI_BASE_URL`をローカルサーバーに向けて起動する。
+2. 必要に応じてCUDAをインストールする。
+3. `hf`でHugging FaceからGGUFモデルをダウンロードする。
+4. `llama-server.exe`をローカルで起動する。
+5. Claw Codeの`OPENAI_BASE_URL`をローカルサーバーに向けて起動する。
 
 !!! note
     ローカルモデルは有料APIクレジットなしで使えますが、CPU、RAM、できれば高性能なGPUと大容量のVRAMが必要です。大きいモデルほど遅くなり、必要メモリも増えます。
@@ -21,7 +22,7 @@
 ├── llama.cpp\
 │   └── llama-server.exe
 └── models\
-    └── qwen3.6-35b\
+    └── qwen3.6-35b-iq4\
         └── model.gguf
 ```
 
@@ -43,8 +44,8 @@ Windowsで`llama.cpp`を導入する方法は、大きく分けて2つありま�
 1. llama.cppのリリースページを開きます。
    - https://github.com/ggml-org/llama.cpp/releases
 2. 自分の環境に合うWindows用のアーカイブをダウンロードします。
-   - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。`llama-(ランダム文字列)-bin-win-cpu-x64.zip`のようなファイル名です
-   - NVIDIA GPUを使う場合は、CUDA対応のWindows用アーカイブがあれば、自分のCUDAドライバーに合うものを選びます。`cudart-llama-bin-win-cuda-12.4-x64.zip`や`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
+   - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。`llama-(ランダム文字列)-bin-win-cpu-x64.zip`のようなファイル名です。
+   - NVIDIA GPUを使う場合は、CUDA対応のWindows用アーカイブがあれば、自分のCUDAランタイムに合うものを選びます。`cudart-llama-bin-win-cuda-12.4-x64.zip`、`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
 3. ダウンロードしたアーカイブを展開します。
 4. 展開したフォルダを次の場所にコピーまたは移動します。
 
@@ -90,7 +91,47 @@ cmake --build build --config Release
 Get-ChildItem -Recurse -Filter llama-server.exe
 ```
 
-## 2. hfをインストールする
+## 2. 必要に応じてCUDAをインストールする
+
+NVIDIA GPU対応の`llama.cpp`ビルドを使う場合は、GPUドライバーに加えてCUDAランタイムまたはCUDA Toolkitが必要になることがあります。
+
+まず、利用できるCUDAのバージョンを確認します。
+
+```powershell
+winget show Nvidia.CUDA --versions
+```
+
+### CUDA 13をインストールする場合
+
+CUDA 13系でよい場合は、次のコマンドでインストールできます。
+
+```powershell
+winget install Nvidia.CUDA --source winget
+```
+
+!!! warning
+    `winget install Nvidia.CUDA`を実行すると、wingetで公開されている最新のCUDAがインストールされます。現在はCUDA 13.2がインストールされる場合があります。CUDA 12系が必要な場合は、このコマンドをそのまま実行せず、次の手順でバージョンを指定してください。
+
+### CUDA 12をインストールする場合
+
+CUDA 12対応の`llama.cpp`アーカイブを使う場合は、`winget show Nvidia.CUDA --versions`で表示されたCUDA 12系のバージョンを指定してインストールします。
+
+```powershell
+winget install Nvidia.CUDA --source winget --version 12.x.x
+```
+
+`12.x.x`は、実際に表示されたCUDA 12系のバージョンに置き換えてください。
+
+インストール後、Windows Terminalを再起動してから確認します。
+
+```powershell
+nvcc --version
+```
+
+!!! tip
+    ビルド済みアーカイブのファイル名に`cuda-12.4`や`cuda-13.1`のような表記がある場合は、できるだけ近いCUDAメジャーバージョンを使ってください。CUDA 12用のアーカイブにはCUDA 12系、CUDA 13用のアーカイブにはCUDA 13系を合わせるとトラブルを減らせます。
+
+## 3. hfをインストールする
 
 `hf`はPythonパッケージの`huggingface_hub`に含まれています。
 
@@ -106,7 +147,7 @@ hf --help
 
 `hf`が見つからない場合は、Windows Terminalを閉じて開き直してから再度試してください。
 
-## 3. 必要に応じてHugging Faceへログインする
+## 4. 必要に応じてHugging Faceへログインする
 
 モデルによっては、ダウンロード前にライセンス同意やログインが必要です。
 
@@ -124,7 +165,7 @@ hf login
 !!! warning
     Hugging Faceのトークンを、公開リポジトリ、スクリーンショット、共有ログなどに貼り付けないでください。
 
-## 4. GGUFモデルを選ぶ
+## 5. GGUFモデルを選ぶ
 
 `llama.cpp`で使う場合は、GGUF形式のモデルを選びます。
 
@@ -133,7 +174,7 @@ hf login
 - **形式**: ファイル名が`.gguf`で終わるものを選びます。
 - **Instruction tuning**: Claw Code用途では`Instruct`または`Coder`系のモデルが向いています。
 - **量子化**: ローカル用途では`Q4_K_M`がバランスのよい選択肢です。量子化の数字が小さいほど、使用メモリが少なくなります。Q8はメモリを多く使用し、Q4はメモリが少なくなります。
-- **メモリ**: 大きいモデルほど多くのRAMまたはVRAMが必要です。モデルのサイズは、27bや35b、500Mなどの表記になっています。
+- **メモリ**: 大きいモデルほど多くのRAMまたはVRAMが必要です。モデルのサイズは、27B、35B、500Mなどの表記になっています。
 
 Hugging Faceでは、たとえば次のようなキーワードで探します。
 
@@ -144,7 +185,7 @@ Hugging Faceでは、たとえば次のようなキーワードで探します�
 
 最初の動作確認では、7Bまたは8B程度の`Instruct`/`Coder`モデルで、`Q4_K_M`量子化のものを選ぶと扱いやすいです。
 
-## 5. hfでモデルをダウンロードする
+## 6. hfでモデルをダウンロードする
 
 モデル保存用フォルダを作成します。
 
@@ -183,7 +224,7 @@ Get-ChildItem .\qwen3.6-35b-iq4 -Filter *.gguf
 Rename-Item .\qwen3.6-35b-iq4\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf model.gguf
 ```
 
-## 6. llama-server.exeを起動する
+## 7. llama-server.exeを起動する
 
 `llama.cpp`のフォルダへ移動します。
 
@@ -215,7 +256,7 @@ Set-Location "$env:USERPROFILE\Documents\local-ai\llama.cpp"
 !!! tip
     メモリ不足になる場合は、より小さいモデルを使う、`Q4_K_M`や`Q3_K_M`など軽い量子化を選ぶ、または`-c 4096`のようにコンテキストサイズを下げてください。
 
-## 7. ローカルのOpenAI互換エンドポイントをテストする
+## 8. ローカルのOpenAI互換エンドポイントをテストする
 
 別のPowerShellウィンドウを開いて、次を実行します。
 
@@ -229,7 +270,7 @@ Invoke-RestMethod `
 
 正常に動作していれば、ローカルモデルからの応答が返ります。
 
-## 8. Claw Codeからllama-server.exeへ接続する
+## 9. Claw Codeからllama-server.exeへ接続する
 
 Claw Codeを起動するPowerShellウィンドウで、OpenAI互換API用の環境変数を設定します。
 
@@ -238,8 +279,7 @@ $env:OPENAI_API_KEY = "local"
 $env:OPENAI_BASE_URL = "http://127.0.0.1:8000/v1"
 ```
 
-その後、`llama-server.exe`起動時に指定したモデルエイリアスを使ってClaw Codeを起動します。
-プロバイダー名はAPIの種別特定に使われるので`openai/`を付与します。
+その後、`llama-server.exe`起動時に指定したモデルエイリアスを使ってClaw Codeを起動します。プロバイダー名はAPIの種別特定に使われるので、モデル名には`openai/`を付与します。
 
 Debugビルドの場合:
 
@@ -270,6 +310,15 @@ Get-ChildItem "$env:USERPROFILE\Documents\local-ai" -Recurse -Filter llama-serve
 ```
 
 見つかった`llama-server.exe`があるフォルダへ移動して実行してください。
+
+### CUDAを入れたのにGPUが使われない
+
+次を確認してください。
+
+- NVIDIAドライバーがインストールされている。
+- CUDA対応の`llama.cpp`アーカイブを使っている。
+- CUDA 12用アーカイブにはCUDA 12系、CUDA 13用アーカイブにはCUDA 13系を使っている。
+- Windows Terminalを再起動してから`nvcc --version`を確認している。
 
 ### モデルが遅すぎる
 

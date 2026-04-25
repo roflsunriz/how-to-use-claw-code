@@ -29,12 +29,13 @@ If this is your first time using OpenRouter, check your account settings and con
 
 OpenRouter uses account credits for paid model usage.
 
-1. Open the OpenRouter dashboard.
-2. Open the **Credits**, **Billing**, or **Settings** area.
-3. Choose the option to add or purchase credits.
-4. Select the amount you want to add.
-5. Pay by credit card.
-6. Confirm that the credit balance has increased after payment.
+1. Open the OpenRouter page and hover over **Personal** in the upper-right corner.
+2. Open **Credits**.
+3. Select **Add Credits**.
+4. Choose the amount you want to add.
+5. Enter your address, billing name, and credit card information. If your payment details are already saved in Stripe, this step may be easier.
+6. Pay by credit card. If the payment does not work, try **Use one-time payment methods**.
+7. Confirm that the credit balance has increased after payment.
 
 !!! note
     The exact labels on the OpenRouter website may change. Look for pages related to credits, billing, account balance, or payments.
@@ -44,9 +45,9 @@ OpenRouter uses account credits for paid model usage.
 
 ## 3. Create an API key
 
-1. Open the OpenRouter dashboard.
-2. Open the **Keys** or **API Keys** page.
-3. Create a new API key.
+1. Click **Personal** in the upper-right corner.
+2. Open **API Keys** from the left sidebar.
+3. Click **Create** to create a new API key. Give it a descriptive name so that you can identify its purpose later.
 4. Copy the generated key.
 5. Store it in a secure place, such as a password manager.
 
@@ -87,12 +88,12 @@ Model availability and names can change, so always confirm the current model slu
 Examples of the kind of model names you may see:
 
 ```txt
-anthropic/claude-sonnet-4.5
-openai/gpt-4.1
-openai/gpt-4.1-mini
-google/gemini-2.5-pro
-qwen/qwen3-coder
-x-ai/grok-code-fast-1
+anthropic/claude-opus-4.7
+openai/gpt-5.5
+openai/gpt-5.4-mini
+google/gemini-3.1-pro-preview
+qwen/qwen3.6-plus
+x-ai/grok-4.20
 ```
 
 If a model fails to start, re-check the exact model slug on OpenRouter and confirm that your account has enough credits.
@@ -131,13 +132,13 @@ For a release build:
 Example:
 
 ```powershell
-.\target\release\claw.exe --model "anthropic/claude-sonnet-4.5"
+.\target\release\claw.exe --model "anthropic/claude-opus-4.7"
 ```
 
 If `claw.exe` is already in your `Path`, you can run:
 
 ```powershell
-claw --model "anthropic/claude-sonnet-4.5"
+claw --model "anthropic/claude-opus-4.7"
 ```
 
 ## 7. Save settings permanently, if needed
