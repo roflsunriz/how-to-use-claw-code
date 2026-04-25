@@ -10,6 +10,13 @@ nav:
   - Windows:
       - English: USAGE-en-US-win.md
       - 日本語: USAGE-ja-JP-win.md
+  - Providers:
+      - OpenRouter:
+          - English: OPENROUTER-en-US.md
+          - 日本語: OPENROUTER-ja-JP.md
+      - Local Models:
+          - English: LOCAL-MODELS-en-US.md
+          - 日本語: LOCAL-MODELS-ja-JP.md
 
 theme:
   name: material
