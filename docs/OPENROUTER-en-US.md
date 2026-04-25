@@ -7,9 +7,9 @@ OpenRouter provides an OpenAI-compatible API endpoint that can route requests to
 ## What you will do
 
 1. Create an OpenRouter account.
-2. Add paid credits with a credit card.
+2. Add paid credits with a credit card if you want to use paid models.
 3. Create an API key.
-4. Choose a model.
+4. Choose a model, including free models if appropriate.
 5. Start Claw Code with OpenRouter settings.
 
 !!! warning
@@ -27,7 +27,7 @@ If this is your first time using OpenRouter, check your account settings and con
 
 ## 2. Add credits
 
-OpenRouter uses account credits for paid model usage.
+OpenRouter uses account credits for paid model usage. Free models may be available and do not require purchasing credits, but they are often rate-limited and less stable than paid models. In practice, requests to free models may be rejected with `429` errors, especially when demand is high. Free model availability and the actual model list can also change frequently, so always confirm the current state on OpenRouter before relying on a free model.
 
 1. Open the OpenRouter page and hover over **Personal** in the upper-right corner.
 2. Open **Credits**.
@@ -41,7 +41,10 @@ OpenRouter uses account credits for paid model usage.
     The exact labels on the OpenRouter website may change. Look for pages related to credits, billing, account balance, or payments.
 
 !!! tip
-    For an initial test, start with a small amount of credits. After confirming that Claw Code works with your chosen model, add more if needed.
+    For an initial test with a paid model, start with a small amount of credits. After confirming that Claw Code works with your chosen model, add more if needed.
+
+!!! note
+    If you only use free models, you can skip purchasing credits. However, free models can be unstable for interactive coding-agent workflows because they may hit rate limits, return `429` errors, or disappear from the available model list.
 
 ## 3. Create an API key
 
@@ -66,7 +69,7 @@ Check the following points on the OpenRouter model page:
 
 - **Model name / slug**: This is the value passed to `--model`.
 - **Context length**: Larger context is useful for reading code and long files.
-- **Pricing**: Check input and output token costs.
+- **Pricing**: Check input and output token costs. Free models may be available, but they can be rate-limited and unstable.
 - **Provider availability**: Some models may be served by multiple providers.
 - **Tool/function support**: Useful for coding-agent workflows if available.
 - **Latency and throughput**: Faster models are more comfortable for interactive work.
@@ -96,7 +99,7 @@ qwen/qwen3.6-plus
 x-ai/grok-4.20
 ```
 
-If a model fails to start, re-check the exact model slug on OpenRouter and confirm that your account has enough credits.
+If a model fails to start, re-check the exact model slug on OpenRouter and confirm that your account has enough credits if the model is paid. For free models, also check whether the model is still available and whether the request is being rejected by rate limits such as `429 Too Many Requests`.
 
 ## 5. Set environment variables for the current terminal
 

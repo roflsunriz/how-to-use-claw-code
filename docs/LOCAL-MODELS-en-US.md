@@ -13,6 +13,9 @@ The goal is to run the following flow:
 !!! note
     Local models do not require paid API credits, but they require enough CPU, RAM, and preferably a powerful GPU with plenty of VRAM. Larger models are slower and require more memory.
 
+!!! warning
+    Very small local models may not work well for coding-agent workflows. They can produce broken or collapsed output, fail to use the terminal appropriately in an agentic workflow, or hallucinate commands, files, APIs, and results. Use an instruction-tuned or coder-oriented model that is large enough for the task whenever possible.
+
 ## Recommended folder layout
 
 This guide uses the following folders:
@@ -183,7 +186,7 @@ Example search keywords for Hugging Face:
 - Distill GGUF
 - Mistral or Mixtral Instruct GGUF
 
-For a first test, a 7B or 8B instruct/coder model with `Q4_K_M` quantization is usually easier to run than a larger model.
+For a first test, a 7B or 8B instruct/coder model with `Q4_K_M` quantization is usually easier to run than a larger model. However, smaller models are more likely to fail at long multi-step coding tasks, tool-use style interactions, and terminal operation. If Claw Code repeatedly produces malformed output, invents nonexistent commands, or cannot proceed with terminal-based work, try a larger or stronger coder/instruct model.
 
 ## 6. Download a model with hf
 
