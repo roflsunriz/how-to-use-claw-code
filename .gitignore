@@ -3,3 +3,6 @@
 .sandbox-home/
 .sandbox-tmp/
 .clawd-todos.json
+
+# MkDocs build output
+site/
