@@ -6,9 +6,10 @@
 
 1. `llama.cpp`を導入する。
 2. 必要に応じてCUDAをインストールする。
-3. `hf`でHugging FaceからGGUFモデルをダウンロードする。
-4. `llama-server.exe`をローカルで起動する。
-5. Claw Codeの`OPENAI_BASE_URL`をローカルサーバーに向けて起動する。
+3. Pythonをインストールする。
+4. `hf`をインストールし、Hugging FaceからGGUFモデルをダウンロードする。
+5. `llama-server.exe`をローカルで起動する。
+6. Claw Codeの`OPENAI_BASE_URL`をローカルサーバーに向けて起動する。
 
 !!! note
     ローカルモデルは有料APIクレジットなしで使えますが、CPU、RAM、できれば高性能なGPUと大容量のVRAMが必要です。大きいモデルほど遅くなり、必要メモリも増えます。
@@ -134,7 +135,26 @@ nvcc --version
 !!! tip
     ビルド済みアーカイブのファイル名に`cuda-12.4`や`cuda-13.1`のような表記がある場合は、できるだけ近いCUDAメジャーバージョンを使ってください。CUDA 12用のアーカイブにはCUDA 12系、CUDA 13用のアーカイブにはCUDA 13系を合わせるとトラブルを減らせます。
 
-## 3. hfをインストールする
+## 3. Pythonをインストールする
+
+`hf`はPythonパッケージとして配布されているため、`huggingface_hub`をインストールする前にPythonを導入します。
+
+wingetでPythonをインストールします。
+
+```powershell
+winget install Python.Python.3.12 --source winget
+```
+
+インストール後、Windows Terminalを閉じて開き直します。その後、Pythonとpipが使えることを確認します。
+
+```powershell
+python --version
+python -m pip --version
+```
+
+`python`が見つからない場合は、もう一度Windows Terminalを再起動してください。それでも見つからない場合は、Pythonが`Path`に追加されているか確認してください。
+
+## 4. hfをインストールする
 
 `hf`はPythonパッケージの`huggingface_hub`に含まれています。
 
@@ -148,9 +168,9 @@ python -m pip install -U huggingface_hub
 hf --help
 ```
 
-`hf`が見つからない場合は、Windows Terminalを閉じて開き直してから再度試してください。
+`hf`が見つからない場合は、Windows Terminalを閉じて開き直してから再度試してください。それでも見つからない場合は、Pythonの`Scripts`フォルダが`Path`に追加されているか確認してください。
 
-## 4. 必要に応じてHugging Faceへログインする
+## 5. 必要に応じてHugging Faceへログインする
 
 モデルによっては、ダウンロード前にライセンス同意やログインが必要です。
 
@@ -168,7 +188,7 @@ hf login
 !!! warning
     Hugging Faceのトークンを、公開リポジトリ、スクリーンショット、共有ログなどに貼り付けないでください。
 
-## 5. GGUFモデルを選ぶ
+## 6. GGUFモデルを選ぶ
 
 `llama.cpp`で使う場合は、GGUF形式のモデルを選びます。
 
@@ -188,7 +208,7 @@ Hugging Faceでは、たとえば次のようなキーワードで探します�
 
 最初の動作確認では、7Bまたは8B程度の`Instruct`/`Coder`モデルで、`Q4_K_M`量子化のものを選ぶと扱いやすいです。ただし、小さいモデルほど長い複数ステップのコーディング作業、ツール利用風の対話、ターミナル操作に失敗しやすくなります。Claw Codeの出力が崩れる、存在しないコマンドを作る、ターミナル作業を進められないといった場合は、より大きい、またはより性能の高い`Coder`/`Instruct`モデルを試してください。
 
-## 6. hfでモデルをダウンロードする
+## 7. hfでモデルをダウンロードする
 
 モデル保存用フォルダを作成します。
 
@@ -227,7 +247,7 @@ Get-ChildItem .\qwen3.6-35b-iq4 -Filter *.gguf
 Rename-Item .\qwen3.6-35b-iq4\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf model.gguf
 ```
 
-## 7. llama-server.exeを起動する
+## 8. llama-server.exeを起動する
 
 `llama.cpp`のフォルダへ移動します。
 
@@ -259,7 +279,7 @@ Set-Location "$env:USERPROFILE\Documents\local-ai\llama.cpp"
 !!! tip
     メモリ不足になる場合は、より小さいモデルを使う、`Q4_K_M`や`Q3_K_M`など軽い量子化を選ぶ、または`-c 4096`のようにコンテキストサイズを下げてください。
 
-## 8. ローカルのOpenAI互換エンドポイントをテストする
+## 9. ローカルのOpenAI互換エンドポイントをテストする
 
 別のPowerShellウィンドウを開いて、次を実行します。
 
@@ -273,7 +293,7 @@ Invoke-RestMethod `
 
 正常に動作していれば、ローカルモデルからの応答が返ります。
 
-## 9. Claw Codeからllama-server.exeへ接続する
+## 10. Claw Codeからllama-server.exeへ接続する
 
 Claw Codeを起動するPowerShellウィンドウで、OpenAI互換API用の環境変数を設定します。
 

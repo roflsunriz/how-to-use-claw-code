@@ -6,9 +6,10 @@ The goal is to run the following flow:
 
 1. Install or obtain `llama.cpp`.
 2. Install CUDA if needed.
-3. Download a GGUF model from Hugging Face with `hf`.
-4. Start `llama-server.exe` locally.
-5. Start Claw Code with `OPENAI_BASE_URL` pointing to the local server.
+3. Install Python.
+4. Install `hf` and download a GGUF model from Hugging Face.
+5. Start `llama-server.exe` locally.
+6. Start Claw Code with `OPENAI_BASE_URL` pointing to the local server.
 
 !!! note
     Local models do not require paid API credits, but they require enough CPU, RAM, and preferably a powerful GPU with plenty of VRAM. Larger models are slower and require more memory.
@@ -134,7 +135,26 @@ nvcc --version
 !!! tip
     If a prebuilt archive file name contains a label such as `cuda-12.4` or `cuda-13.1`, use a matching CUDA major version whenever possible. Pair CUDA 12 archives with CUDA 12, and CUDA 13 archives with CUDA 13 to avoid runtime issues.
 
-## 3. Install hf
+## 3. Install Python
+
+`hf` is distributed as a Python package, so install Python before installing `huggingface_hub`.
+
+Install Python with winget:
+
+```powershell
+winget install Python.Python.3.12 --source winget
+```
+
+After installation, close and reopen Windows Terminal. Then check that Python and pip are available:
+
+```powershell
+python --version
+python -m pip --version
+```
+
+If `python` is not found, restart Windows Terminal again. If it is still not found, check that Python was added to your `Path`.
+
+## 4. Install hf
 
 `hf` is included in the `huggingface_hub` Python package.
 
@@ -148,9 +168,9 @@ Check that the command is available:
 hf --help
 ```
 
-If `hf` is not found, close and reopen Windows Terminal, then try again.
+If `hf` is not found, close and reopen Windows Terminal, then try again. If it is still not found, check that Python's `Scripts` directory was added to your `Path`.
 
-## 4. Log in to Hugging Face when needed
+## 5. Log in to Hugging Face when needed
 
 Some models require accepting a license or logging in before download.
 
@@ -168,7 +188,7 @@ Paste your token when prompted.
 !!! warning
     Do not paste your Hugging Face token into public repositories, screenshots, or shared logs.
 
-## 5. Choose a GGUF model
+## 6. Choose a GGUF model
 
 For `llama.cpp`, choose a model in the GGUF format.
 
@@ -188,7 +208,7 @@ Example search keywords for Hugging Face:
 
 For a first test, a 7B or 8B instruct/coder model with `Q4_K_M` quantization is usually easier to run than a larger model. However, smaller models are more likely to fail at long multi-step coding tasks, tool-use style interactions, and terminal operation. If Claw Code repeatedly produces malformed output, invents nonexistent commands, or cannot proceed with terminal-based work, try a larger or stronger coder/instruct model.
 
-## 6. Download a model with hf
+## 7. Download a model with hf
 
 Create a models directory:
 
@@ -227,7 +247,7 @@ For convenience, you can rename the model file to `model.gguf`:
 Rename-Item .\qwen3.6-35b-iq4\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf model.gguf
 ```
 
-## 7. Start llama-server.exe
+## 8. Start llama-server.exe
 
 Move to the llama.cpp directory:
 
@@ -259,7 +279,7 @@ Keep this PowerShell window open while using the local model.
 !!! tip
     If your PC runs out of memory, use a smaller model, a lighter quantization such as `Q4_K_M` or `Q3_K_M`, or reduce the context size with `-c 4096`.
 
-## 8. Test the local OpenAI-compatible endpoint
+## 9. Test the local OpenAI-compatible endpoint
 
 Open another PowerShell window and run:
 
@@ -273,7 +293,7 @@ Invoke-RestMethod `
 
 If the server is working, you should receive a response from the local model.
 
-## 9. Connect Claw Code to llama-server.exe
+## 10. Connect Claw Code to llama-server.exe
 
 In the PowerShell window where you want to run Claw Code, set OpenAI-compatible environment variables:
 
