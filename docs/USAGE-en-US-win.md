@@ -20,29 +20,31 @@ You can use any of the following methods.
 3. Search for `Terminal`.
 4. Click **Terminal**.
 
-### Method 3: Open as administrator from the Run dialog
+??? info "Open as administorator"
 
-1. Press <kbd>Windows</kbd> + <kbd>R</kbd>.
-2. Type `wt` or `wt.exe`.
-3. Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>.
-4. When the User Account Control (UAC) prompt appears, approve it.
+      Method 3: Open as administrator from the Run dialog
 
-### Method 4: Open as administrator from the Start menu
+      1. Press <kbd>Windows</kbd> + <kbd>R</kbd>.
+      2. Type `wt` or `wt.exe`.
+      3. Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>.
+      4. When the User Account Control (UAC) prompt appears, approve it.
 
-1. Press the <kbd>Windows</kbd> key.
-2. Open the list of all installed apps.
-3. Search for `Terminal`.
-4. Right-click **Terminal**.
-5. Select **Run as administrator**.
-6. When the User Account Control (UAC) prompt appears, approve it.
+      Method 4: Open as administrator from the Start menu
 
-### Method 5: Open an administrator tab from Windows Terminal
+      1. Press the <kbd>Windows</kbd> key.
+      2. Open the list of all installed apps.
+      3. Search for `Terminal`.
+      4. Right-click **Terminal**.
+      5. Select **Run as administrator**.
+      6. When the User Account Control (UAC) prompt appears, approve it.
 
-1. Open Windows Terminal normally.
-2. Click the down arrow (`∨`) next to the tab bar.
-3. Right-click **PowerShell**.
-4. Select **Run as administrator**.
-5. When the User Account Control (UAC) prompt appears, approve it.
+      Method 5: Open an administrator tab from Windows Terminal
+
+      1. Open Windows Terminal normally.
+      2. Click the down arrow (`∨`) next to the tab bar.
+      3. Right-click **PowerShell**.
+      4. Select **Run as administrator**.
+      5. When the User Account Control (UAC) prompt appears, approve it.
 
 ## Install Claw Code
 
