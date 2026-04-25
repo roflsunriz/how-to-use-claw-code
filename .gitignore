@@ -1,0 +1,5 @@
+# Claw Code files
+.claw/
+.sandbox-home/
+.sanbox-tmp/
+.clawd-todos.json

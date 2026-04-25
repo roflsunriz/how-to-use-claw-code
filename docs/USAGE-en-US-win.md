@@ -1,90 +1,249 @@
-# How to use claw-code in Windows, the step-by-step guide for beginners
+# How to Use Claw Code on Windows
 
-## How to open terminal
+This guide explains how to install and run Claw Code on Windows.
+It is written for beginners and uses Windows Terminal and PowerShell.
 
-### method 1
-1. Push the key: Windows + R
-2. Dialogue will appear, then type `wt` or `wt.exe` in text field.
-3. Press Enter. Done.
+## Open Windows Terminal
 
-### method 2
-1. Press Windows Button. Start menu will appear.
-2. Click `all` to browse all installed app.
-3. Search `terminal` then click it.
-4. Done.
+You can use any of the following methods.
 
-### method 3 (Administorator privileges)
-1. Push the key: Windows + R
-2. Dialogue will appear, then type `wt` or `wt.exe` in text field.
-3. Press Ctrl + Shift + Enter.
-4. UAC will appear so approve it.
-5. Done.
+### Method 1: Open from the Run dialog
 
-### method 4 (Administorator privileges)
-1. Press Windows Button. Start menu will appear.
-2. Click `all` to browse all installed app.
-3. Search `terminal` then right click on it.
-4. Find details sub menu.
-5. Click `Run in Administrator mode`.
-6. UAC will appear. Approve it.
-7. Done.
+1. Press <kbd>Windows</kbd> + <kbd>R</kbd>.
+2. Type `wt` or `wt.exe`.
+3. Press <kbd>Enter</kbd>.
 
-### method 5 (Administorator privileges)
-1. After launched terminal in normal mode, click `∨` icon.
-2. Point powershell then right click on it.
-3. `Run in Administrator mode` will appear so select it.
-4. UAC will appear so approve it.
-5. Done.
+### Method 2: Open from the Start menu
 
-## How to install claw-code to your system
+1. Press the <kbd>Windows</kbd> key.
+2. Open the list of all installed apps.
+3. Search for `Terminal`.
+4. Click **Terminal**.
 
-### Install newer powershell
-1. Launch terminal in cmd mode. (Click `∨` then choose `Command Prompt`)
-2. Execute `winget upgrade Microsoft.Powershell --source winget` to upgrade to newest version of Powershell. 
-3. Click `∨` then choose settings.
-4. In `Start up` tab, choose `Powershell` in `Default Profile`. Not `Windows Powershell`. `Windows Powershell` is pre-installed version for Windows and it is older.
-5. Click `+` and confirm the terminal outputs something `Powershell 7.6.1` or newer version.
+### Method 3: Open as administrator from the Run dialog
 
-### Install Git
-1. Execute `winget install Git.Git --source winget`
-2. Restart terminal. In typical, press `+`.
+1. Press <kbd>Windows</kbd> + <kbd>R</kbd>.
+2. Type `wt` or `wt.exe`.
+3. Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>.
+4. When the User Account Control (UAC) prompt appears, approve it.
 
-### Clone Repository
-1. Move the current directory to your preffered location. In this guide, `Set-Location $env:USERPROFILE\Documents`
-2. `git clone ultraworkers/claw-code`
+### Method 4: Open as administrator from the Start menu
 
-### Install Rust to build
-1. `winget install Rustlang.Rustup --source winget`
-2. Restart terminal.
+1. Press the <kbd>Windows</kbd> key.
+2. Open the list of all installed apps.
+3. Search for `Terminal`.
+4. Right-click **Terminal**.
+5. Select **Run as administrator**.
+6. When the User Account Control (UAC) prompt appears, approve it.
 
-### Build it from source code
-1. `cargo build --workspace` or `cargo build --release`. Either command takes 5-15 mininutes to finish. `--workspace` is debug build and faster building. `--release` is optimized building and faster launch executable, smaller size of file but it takes time to build.
+### Method 5: Open an administrator tab from Windows Terminal
 
+1. Open Windows Terminal normally.
+2. Click the down arrow (`∨`) next to the tab bar.
+3. Right-click **PowerShell**.
+4. Select **Run as administrator**.
+5. When the User Account Control (UAC) prompt appears, approve it.
 
-### Set API KEY to Environment Variables (Method 1, Safer, dispose when you close terminal)
-1. `$env:ANTHRPOPIC_API_KEY = "SET YOUR API KEY HERE` or `$env: ANTHROPIC_AUTH_TOKEN = "SET YOUR AUTH TOKEN"` For Anthropic Claude models.
-2. `$env: OPENAI_API_KEY= "SET YOUR API KEY HERE"` and `$env: OPENAI_BASE_URL="SET YOUR API ENDPOINT HERE"` (e.g. "https://openrouter.ai/api/v1", "https://api.cerebras.ai/v1", "https://127.0.0.1:8000/v1" for local models, ollama, llama.cpp, LMStudio)
-3. `.\target\debug\claw.exe --model "YOUR AI MODEL"`(e.g. "openai/gpt-5.5", "anthropic/claude-opus-4-7", "deepseek/deepseek-v4-pro", etc.)
+## Install Claw Code
 
-### Set API KEY to Environment Variables (Method 2, Dangerous, For daily use)
-1. 
-    ```powershell
-    [Environment]::SetEnvironmentVariable("OPENAI_API_KEY", "SET YOUR API KEY HERE", "User")
-    [Environment]::SetEnvironmentVariable("OPENAI_BASE_URL", "SET URL HERE", "User")
-    ```
-2. `.\target\debug\claw.exe --model "YOUR AI MODEL"`
+### 1. Install or update PowerShell
 
-### Set claw.exe to Path Environment Variables
+1. Open Windows Terminal with **Command Prompt**.
+   - Click the down arrow (`∨`) and choose **Command Prompt**.
+2. Run the following command:
+
+   ```cmd
+   winget upgrade Microsoft.PowerShell --source winget
+   ```
+
+   If PowerShell is not installed yet, run this instead:
+
+   ```cmd
+   winget install Microsoft.PowerShell --source winget
+   ```
+
+3. Restart Windows Terminal.
+4. Open **Settings** from the down arrow (`∨`) menu.
+5. In **Startup**, set **Default profile** to **PowerShell**.
+   - Choose **PowerShell**, not **Windows PowerShell**.
+   - **Windows PowerShell** is the older version included with Windows.
+6. Open a new PowerShell tab and confirm that it shows PowerShell 7 or newer.
+
+### 2. Install Git
+
+Run the following command:
+
 ```powershell
-$newPath = "C:\Users\UserName\Documents\claw-code\rust\target\debug"
+winget install Git.Git --source winget
+```
+
+After installation, restart Windows Terminal.
+
+### 3. Clone the repository
+
+1. Move to the directory where you want to place the source code.
+   This guide uses the `Documents` folder:
+
+   ```powershell
+   Set-Location $env:USERPROFILE\Documents
+   ```
+
+2. Clone the repository:
+
+   ```powershell
+   git clone https://github.com/ultraworkers/claw-code.git
+   ```
+
+3. Move into the cloned repository:
+
+   ```powershell
+   Set-Location .\claw-code
+   ```
+
+### 4. Install Rust
+
+Run the following command:
+
+```powershell
+winget install Rustlang.Rustup --source winget
+```
+
+After installation, restart Windows Terminal.
+
+### 5. Build Claw Code from source
+
+From the cloned `claw-code` repository, run one of the following commands.
+
+For a debug build:
+
+```powershell
+cargo build --workspace
+```
+
+For an optimized release build:
+
+```powershell
+cargo build --release
+```
+
+The build may take about 5 to 15 minutes.
+
+- `cargo build --workspace` is usually faster to build, but the executable is a debug build.
+- `cargo build --release` takes longer, but the executable starts faster and has a smaller file size.
+
+## Set API keys
+
+Claw Code needs API credentials for the model provider you want to use.
+
+### Method 1: Set environment variables for the current terminal only
+
+This method is safer because the values disappear when you close the terminal.
+
+For Anthropic Claude models, run one of the following commands:
+
+```powershell
+$env:ANTHROPIC_API_KEY = "SET YOUR API KEY HERE"
+```
+
+or:
+
+```powershell
+$env:ANTHROPIC_AUTH_TOKEN = "SET YOUR AUTH TOKEN HERE"
+```
+
+For OpenAI-compatible APIs, run:
+
+```powershell
+$env:OPENAI_API_KEY = "SET YOUR API KEY HERE"
+$env:OPENAI_BASE_URL = "SET YOUR API ENDPOINT HERE"
+```
+
+Examples of OpenAI-compatible API endpoints:
+
+- `https://openrouter.ai/api/v1`
+- `https://api.cerebras.ai/v1`
+- `http://127.0.0.1:8000/v1` for local models such as Ollama, llama.cpp, or LM Studio
+
+Then start Claw Code. Use the command that matches the build type you created.
+
+For a debug build:
+
+```powershell
+.\target\debug\claw.exe --model "YOUR AI MODEL"
+```
+
+For a release build:
+
+```powershell
+.\target\release\claw.exe --model "YOUR AI MODEL"
+```
+
+Example model names:
+
+- `openai/gpt-5.5`
+- `anthropic/claude-opus-4-7`
+- `deepseek/deepseek-v4-pro`
+
+### Method 2: Save environment variables permanently
+
+This method is convenient for daily use, but it stores your credentials in your user environment variables.
+Use it only if you understand the security risk.
+
+```powershell
+[Environment]::SetEnvironmentVariable("OPENAI_API_KEY", "SET YOUR API KEY HERE", "User")
+[Environment]::SetEnvironmentVariable("OPENAI_BASE_URL", "SET YOUR API ENDPOINT HERE", "User")
+```
+
+Open a new terminal after setting permanent environment variables.
+
+Then start Claw Code. Use the command that matches the build type you created.
+
+For a debug build:
+
+```powershell
+.\target\debug\claw.exe --model "YOUR AI MODEL"
+```
+
+For a release build:
+
+```powershell
+.\target\release\claw.exe --model "YOUR AI MODEL"
+```
+
+## Add `claw.exe` to your PATH
+
+If you want to run `claw` from any directory, add the build output directory to your user `Path` environment variable.
+
+For a debug build:
+
+```powershell
+$newPath = "$env:USERPROFILE\Documents\claw-code\target\debug"
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 [Environment]::SetEnvironmentVariable("Path", "$oldPath;$newPath", "User")
 ```
-  
-then, 
-  
-Move current directory to your repository (e.g. `$env:USERPROFILE\Documents\my-repository`)  
-  
-then,  
-  
-You can type `claw --model "openai/gpt-5.5"` to start coding
+
+For a release build, use `target\release` instead:
+
+```powershell
+$newPath = "$env:USERPROFILE\Documents\claw-code\target\release"
+$oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
+[Environment]::SetEnvironmentVariable("Path", "$oldPath;$newPath", "User")
+```
+
+Open a new terminal after updating `Path`.
+
+## Start Claw Code in your project
+
+1. Move to your own project repository:
+
+   ```powershell
+   Set-Location $env:USERPROFILE\Documents\my-repository
+   ```
+
+2. Start Claw Code:
+
+   ```powershell
+   claw --model "openai/gpt-5.5"
+   ```
+
+Replace the model name with the model you want to use.
