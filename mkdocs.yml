@@ -1,5 +1,10 @@
 site_name: How to Use Claw Code
-site_description: Guides for installing and using Claw Code
+site_description: |-
+  This guide includes:
+  - How to install build tools,
+  - How to build Claw Code from source,
+  - How to start using Claw Code with the command line interface (CLI),
+  - How to use Claw Code with providers like OpenRouter and local models.
 repo_url: https://github.com/roflsunriz/how-to-use-claw-code
 repo_name: roflsunriz/how-to-use-claw-code
 
