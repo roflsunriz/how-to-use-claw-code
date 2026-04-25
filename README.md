@@ -6,6 +6,7 @@ Claw CodeをWindowsで導入・利用するための手順をまとめたドキ�
 
 ## ドキュメント
 
+- 公開サイト: https://roflsunriz.github.io/how-to-use-claw-code/
 - [WindowsでClaw Codeを使う方法](docs/USAGE-ja-JP-win.md)
 - [How to Use Claw Code on Windows](docs/USAGE-en-US-win.md)
 
