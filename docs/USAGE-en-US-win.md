@@ -67,8 +67,11 @@ You can use any of the following methods.
 3. Restart Windows Terminal.
 4. Open **Settings** from the down arrow (`∨`) menu.
 5. In **Startup**, set **Default profile** to **PowerShell**.
-   - Choose **PowerShell**, not **Windows PowerShell**.
-   - **Windows PowerShell** is the older version included with Windows.
+
+    !!! note
+        Choose **PowerShell**, not **Windows PowerShell**.
+        **Windows PowerShell** is the older version included with Windows.
+
 6. Open a new PowerShell tab and confirm that it shows PowerShell 7 or newer.
 
 ### 2. Install Git

@@ -67,8 +67,11 @@
 3. Windows Terminalを再起動します。
 4. 下向き矢印（`∨`）メニューから **Settings** を開きます。
 5. **Startup** で **Default profile** を **PowerShell** に設定します。
-   - **Windows PowerShell** ではなく **PowerShell** を選んでください。
-   - **Windows PowerShell** はWindowsに標準搭載されている古いPowerShellです。
+
+    !!! note
+        **Windows PowerShell** ではなく **PowerShell** を選んでください。
+        **Windows PowerShell** はWindowsに標準搭載されている古いPowerShellです。
+
 6. 新しいPowerShellタブを開き、PowerShell 7以降が表示されることを確認します。
 
 ### 2. Gitをインストールする
