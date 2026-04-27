@@ -46,24 +46,24 @@ There are two common ways to obtain `llama.cpp` on Windows.
 This is the easiest method.
 
 1. Open the llama.cpp releases page:
-   - https://github.com/ggml-org/llama.cpp/releases
+    - [llama.cpp releases](https://github.com/ggml-org/llama.cpp/releases)
 2. Download a Windows build that matches your environment.
-   - For CPU-only usage, choose a Windows archive that includes `llama-server.exe`. The file name may look like `llama-(random string)-bin-win-cpu-x64.zip`.
-   - For NVIDIA GPU inference, choose a CUDA-enabled Windows archive and install the matching CUDA runtime. The file name may look like `cudart-llama-bin-win-cuda-12.4-x64.zip`, `cudart-llama-bin-win-cuda-13.1-x64.zip`, `llama-(random string)-bin-win-cuda-12.4-x64.zip`, or `llama-(random string)-bin-win-cuda-13.1-x64.zip`.
-   - If you want to use a different GPU backend, `llama.cpp` also ships Windows builds for Vulkan, SYCL, and HIP.
+    - For CPU-only usage, choose a Windows archive that includes `llama-server.exe`. The file name may look like `llama-(random string)-bin-win-cpu-x64.zip`.
+    - For NVIDIA GPU inference, choose a CUDA-enabled Windows archive and install the matching CUDA runtime. The file name may look like `cudart-llama-bin-win-cuda-12.4-x64.zip`, `cudart-llama-bin-win-cuda-13.1-x64.zip`, `llama-(random string)-bin-win-cuda-12.4-x64.zip`, or `llama-(random string)-bin-win-cuda-13.1-x64.zip`.
+    - If you want to use a different GPU backend, `llama.cpp` also ships Windows builds for Vulkan, SYCL, and HIP.
 3. Extract the archive.
 4. Copy or move the extracted folder to:
 
-   ```txt
-   %USERPROFILE%\Documents\local-ai\llama.cpp
-   ```
+    ```txt
+    %USERPROFILE%\Documents\local-ai\llama.cpp
+    ```
 
 5. Download the `cudart-llama-bin-win-cuda-<version>-x64.zip` archive, then extract its DLL files into the `llama.cpp` folder next to `llama-server.exe`.
 6. Confirm that `llama-server.exe` exists:
 
-   ```powershell
-   Test-Path "$env:USERPROFILE\Documents\local-ai\llama.cpp\llama-server.exe"
-   ```
+    ```powershell
+    Test-Path "$env:USERPROFILE\Documents\local-ai\llama.cpp\llama-server.exe"
+    ```
 
 If the command returns `True`, the executable is available.
 

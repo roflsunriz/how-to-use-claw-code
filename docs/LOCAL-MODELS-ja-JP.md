@@ -46,24 +46,24 @@ Windowsで`llama.cpp`を導入する方法は、大きく分けて2つありま�
 初心者にはこの方法が簡単です。
 
 1. llama.cppのリリースページを開きます。
-   - https://github.com/ggml-org/llama.cpp/releases
+    - [llama.cpp releases](https://github.com/ggml-org/llama.cpp/releases)
 2. 自分の環境に合うWindows用のアーカイブをダウンロードします。
-   - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。`llama-(ランダム文字列)-bin-win-cpu-x64.zip`のようなファイル名です。
-   - NVIDIA GPUで推論する場合は、CUDA対応のWindows用アーカイブを選び、対応するCUDAランタイムを入れます。`cudart-llama-bin-win-cuda-12.4-x64.zip`、`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
-   - NVIDIA以外のGPUバックエンドを使う場合は、`llama.cpp`のWindowsビルドにはVulkan、SYCL、HIPもあります。
+    - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。`llama-(ランダム文字列)-bin-win-cpu-x64.zip`のようなファイル名です。
+    - NVIDIA GPUで推論する場合は、CUDA対応のWindows用アーカイブを選び、対応するCUDAランタイムを入れます。`cudart-llama-bin-win-cuda-12.4-x64.zip`、`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
+    - NVIDIA以外のGPUバックエンドを使う場合は、`llama.cpp`のWindowsビルドにはVulkan、SYCL、HIPもあります。
 3. ダウンロードしたアーカイブを展開します。
 4. 展開したフォルダを次の場所にコピーまたは移動します。
 
-   ```txt
-   %USERPROFILE%\Documents\local-ai\llama.cpp
-   ```
+    ```txt
+    %USERPROFILE%\Documents\local-ai\llama.cpp
+    ```
 
 5. `cudart-llama-bin-win-cuda-<version>-x64.zip`をダウンロードし、DLLファイルを`llama-server.exe`の隣にある`llama.cpp`フォルダへ展開します。
 6. `llama-server.exe`が存在することを確認します。
 
-   ```powershell
-   Test-Path "$env:USERPROFILE\Documents\local-ai\llama.cpp\llama-server.exe"
-   ```
+    ```powershell
+    Test-Path "$env:USERPROFILE\Documents\local-ai\llama.cpp\llama-server.exe"
+    ```
 
 `True`と表示されれば、実行ファイルを利用できます。
 
