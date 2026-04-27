@@ -5,7 +5,7 @@
 目標は次の流れです。
 
 1. `llama.cpp`を導入する。
-2. 必要に応じてCUDAをインストールする。
+2. NVIDIA GPUを使う場合はCUDAをインストールする。
 3. Pythonをインストールする。
 4. `hf`をインストールし、Hugging FaceからGGUFモデルをダウンロードする。
 5. `llama-server.exe`をローカルで起動する。
@@ -49,7 +49,8 @@ Windowsで`llama.cpp`を導入する方法は、大きく分けて2つありま�
    - https://github.com/ggml-org/llama.cpp/releases
 2. 自分の環境に合うWindows用のアーカイブをダウンロードします。
    - CPUのみで使う場合は、`llama-server.exe`を含むWindows用アーカイブを選びます。`llama-(ランダム文字列)-bin-win-cpu-x64.zip`のようなファイル名です。
-   - NVIDIA GPUを使う場合は、CUDA対応のWindows用アーカイブがあれば、自分のCUDAランタイムに合うものを選びます。`cudart-llama-bin-win-cuda-12.4-x64.zip`、`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
+   - NVIDIA GPUで推論する場合は、CUDA対応のWindows用アーカイブを選び、対応するCUDAランタイムを入れます。`cudart-llama-bin-win-cuda-12.4-x64.zip`、`cudart-llama-bin-win-cuda-13.1-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-12.4-x64.zip`、`llama-(ランダム文字列)-bin-win-cuda-13.1-x64.zip`のようなファイル名です。
+   - NVIDIA以外のGPUバックエンドを使う場合は、`llama.cpp`のWindowsビルドにはVulkan、SYCL、HIPもあります。
 3. ダウンロードしたアーカイブを展開します。
 4. 展開したフォルダを次の場所にコピーまたは移動します。
 
@@ -57,7 +58,8 @@ Windowsで`llama.cpp`を導入する方法は、大きく分けて2つありま�
    %USERPROFILE%\Documents\local-ai\llama.cpp
    ```
 
-5. `llama-server.exe`が存在することを確認します。
+5. `cudart-llama-bin-win-cuda-<version>-x64.zip`をダウンロードし、DLLファイルを`llama-server.exe`の隣にある`llama.cpp`フォルダへ展開します。
+6. `llama-server.exe`が存在することを確認します。
 
    ```powershell
    Test-Path "$env:USERPROFILE\Documents\local-ai\llama.cpp\llama-server.exe"
@@ -95,9 +97,9 @@ cmake --build build --config Release
 Get-ChildItem -Recurse -Filter llama-server.exe
 ```
 
-## 2. 必要に応じてCUDAをインストールする
+## 2. NVIDIA GPUを使う場合はCUDAをインストールする
 
-NVIDIA GPU対応の`llama.cpp`ビルドを使う場合は、GPUドライバーに加えてCUDAランタイムまたはCUDA Toolkitが必要になることがあります。
+NVIDIA GPU対応の`llama.cpp`ビルドを使う場合は、GPUドライバーに加えてCUDAランタイムまたはCUDA Toolkitが必要です。Vulkan、SYCL、HIPのビルドを使う場合はCUDAは不要で、対応するバックエンドのアーカイブを使います。
 
 まず、利用できるCUDAのバージョンを確認します。
 
@@ -199,12 +201,30 @@ hf login
 - **量子化**: ローカル用途では`Q4_K_M`がバランスのよい選択肢です。量子化の数字が小さいほど、使用メモリが少なくなります。Q8はメモリを多く使用し、Q4はメモリが少なくなります。
 - **メモリ**: 大きいモデルほど多くのRAMまたはVRAMが必要です。モデルのサイズは、27B、35B、500Mなどの表記になっています。
 
+2026/04時点では、実在するGGUFリポジトリだけを書き、しかも選ぶ量子化がVRAM帯に収まるものだけを載せます。モデルカードにある実際のファイルサイズを見て、対象VRAMに少し余裕があるものを選んでください。
+
+VRAM別のおすすめは次のとおりです。
+
+| VRAM | モデル | GGUF量子化 | サイズ | 備考 |
+| --- | --- | --- | --- | --- |
+| 16 GB | `gpt-oss-20b` | `Q4_K_M` | 15.8 GB | 推論とツール利用寄りのオープンウェイトモデルで、16 GBクラスに収まります。 |
+| 16 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q6_K` | 14.1 GB | コード寄りで、16 GBの範囲に余裕を残しやすいです。 |
+| 16 GB | `Qwen2.5-Coder-14B-Instruct` | `Q8_0` | 15.7 GB | 密な構造のコーダーで、16 GBクラスに収まります。 |
+| 12 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` | 10.4 GB | 12 GBカード向けの安全な候補です。 |
+| 12 GB | `Qwen2.5-Coder-14B-Instruct` | `Q4_K_M` | 8.99 GB | 10 GB級よりも余裕があります。 |
+| 8 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q3_K_S` | 7.49 GB | コード専用で、8 GBの範囲内に収まります。 |
+| 8 GB | `Qwen2.5-Coder-7B-Instruct` | `Q4_K_M` | 4.68 GB | 8 GBカードで扱いやすい小さめの候補です。 |
+| 8 GB | `uCoder-8b-base` | `Q4_K_M` | 5.25 GB | コード特化のベースモデルです。完全なInstructモデルではありません。 |
+
+`llama.cpp`はVRAMに収まらないモデルをRAMへ逃がして動かすこともできますが、このガイドの主な例では扱いません。速度が落ち、VRAM帯ごとの比較もしづらくなるためです。
+
 Hugging Faceでは、たとえば次のようなキーワードで探します。
 
-- Qwen 3.6 GGUF
-- DeepSeek R1 GGUF
-- Distill GGUF
-- Mistral or Mixtral Instruct GGUF
+- `gpt-oss 20b GGUF`
+- `DeepSeek-Coder-V2-Lite-Instruct GGUF`
+- `Qwen2.5-Coder-14B-Instruct GGUF`
+- `Qwen2.5-Coder-7B-Instruct GGUF`
+- `uCoder-8b-base GGUF`
 
 最初の動作確認では、7Bまたは8B程度の`Instruct`/`Coder`モデルで、`Q4_K_M`量子化のものを選ぶと扱いやすいです。ただし、小さいモデルほど長い複数ステップのコーディング作業、ツール利用風の対話、ターミナル操作に失敗しやすくなります。Claw Codeの出力が崩れる、存在しないコマンドを作る、ターミナル作業を進められないといった場合は、より大きい、またはより性能の高い`Coder`/`Instruct`モデルを試してください。
 
@@ -334,14 +354,18 @@ Get-ChildItem "$env:USERPROFILE\Documents\local-ai" -Recurse -Filter llama-serve
 
 見つかった`llama-server.exe`があるフォルダへ移動して実行してください。
 
+ダウンロードした`cudart-llama-bin-win-cuda-<version>-x64.zip`に含まれるCUDAランタイムのDLLファイルが、`llama-server.exe`と同じ`llama.cpp`フォルダに展開されていることも確認してください。
+
 ### CUDAを入れたのにGPUが使われない
 
 次を確認してください。
 
 - NVIDIAドライバーがインストールされている。
-- CUDA対応の`llama.cpp`アーカイブを使っている。
+- CUDA対応の`llama.cpp`アーカイブを使っている。CPU専用、Vulkan、SYCL、HIPのビルドではありません。
 - CUDA 12用アーカイブにはCUDA 12系、CUDA 13用アーカイブにはCUDA 13系を使っている。
 - Windows Terminalを再起動してから`nvcc --version`を確認している。
+
+CUDAビルドが起動直後に落ちる場合は、`cudart-llama-bin-win-cuda-<version>-x64.zip`のDLLを`llama.cpp`フォルダへ展開したかも再確認してください。
 
 ### モデルが遅すぎる
 

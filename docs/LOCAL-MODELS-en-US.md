@@ -5,7 +5,7 @@ This guide explains how to run a local model with `llama.cpp` and connect Claw C
 The goal is to run the following flow:
 
 1. Install or obtain `llama.cpp`.
-2. Install CUDA if needed.
+2. Install CUDA if you use an NVIDIA GPU.
 3. Install Python.
 4. Install `hf` and download a GGUF model from Hugging Face.
 5. Start `llama-server.exe` locally.
@@ -49,7 +49,8 @@ This is the easiest method.
    - https://github.com/ggml-org/llama.cpp/releases
 2. Download a Windows build that matches your environment.
    - For CPU-only usage, choose a Windows archive that includes `llama-server.exe`. The file name may look like `llama-(random string)-bin-win-cpu-x64.zip`.
-   - For NVIDIA GPU usage, choose a CUDA-enabled Windows archive if available and compatible with your CUDA runtime. The file name may look like `cudart-llama-bin-win-cuda-12.4-x64.zip`, `cudart-llama-bin-win-cuda-13.1-x64.zip`, `llama-(random string)-bin-win-cuda-12.4-x64.zip`, or `llama-(random string)-bin-win-cuda-13.1-x64.zip`.
+   - For NVIDIA GPU inference, choose a CUDA-enabled Windows archive and install the matching CUDA runtime. The file name may look like `cudart-llama-bin-win-cuda-12.4-x64.zip`, `cudart-llama-bin-win-cuda-13.1-x64.zip`, `llama-(random string)-bin-win-cuda-12.4-x64.zip`, or `llama-(random string)-bin-win-cuda-13.1-x64.zip`.
+   - If you want to use a different GPU backend, `llama.cpp` also ships Windows builds for Vulkan, SYCL, and HIP.
 3. Extract the archive.
 4. Copy or move the extracted folder to:
 
@@ -57,7 +58,8 @@ This is the easiest method.
    %USERPROFILE%\Documents\local-ai\llama.cpp
    ```
 
-5. Confirm that `llama-server.exe` exists:
+5. Download the `cudart-llama-bin-win-cuda-<version>-x64.zip` archive, then extract its DLL files into the `llama.cpp` folder next to `llama-server.exe`.
+6. Confirm that `llama-server.exe` exists:
 
    ```powershell
    Test-Path "$env:USERPROFILE\Documents\local-ai\llama.cpp\llama-server.exe"
@@ -95,9 +97,9 @@ After the build completes, find `llama-server.exe` under the build directory. Th
 Get-ChildItem -Recurse -Filter llama-server.exe
 ```
 
-## 2. Install CUDA if needed
+## 2. Install CUDA if you use NVIDIA GPU inference
 
-If you use an NVIDIA GPU-enabled `llama.cpp` build, you may need the CUDA runtime or CUDA Toolkit in addition to an NVIDIA GPU driver.
+If you use an NVIDIA GPU-enabled `llama.cpp` build, CUDA is required in addition to an NVIDIA GPU driver. For Vulkan, SYCL, or HIP builds, skip CUDA and use the matching backend archive instead.
 
 First, check the available CUDA versions:
 
@@ -199,12 +201,30 @@ When selecting a model, check the following points:
 - **Quantization**: `Q4_K_M` is a common balanced choice for local usage. Lower quantization numbers generally use less memory. Q8 uses more memory, while Q4 uses less.
 - **Memory**: Larger models require more RAM or VRAM. Model sizes are commonly written as 27B, 35B, 500M, and similar labels.
 
+As of 2026/04, do not guess. Only list models that have a real GGUF repository and whose selected quantization fits the target VRAM size with some headroom for the KV cache and runtime overhead.
+
+Recommended starting points by GPU memory:
+
+| VRAM | Model | GGUF quant | Size | Notes |
+| --- | --- | --- | --- | --- |
+| 16 GB | `gpt-oss-20b` | `Q4_K_M` | 15.8 GB | Open-weight reasoning and tool-use model that fits the 16 GB class. |
+| 16 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q6_K` | 14.1 GB | Code-focused and leaves more headroom than a near-ceiling fit. |
+| 16 GB | `Qwen2.5-Coder-14B-Instruct` | `Q8_0` | 15.7 GB | Strong dense coder option that still fits the class. |
+| 12 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` | 10.4 GB | Safe fit for most 12 GB cards. |
+| 12 GB | `Qwen2.5-Coder-14B-Instruct` | `Q4_K_M` | 8.99 GB | More headroom than the 10 GB-class options. |
+| 8 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q3_K_S` | 7.49 GB | Code-specific and under the 8 GB line. |
+| 8 GB | `Qwen2.5-Coder-7B-Instruct` | `Q4_K_M` | 4.68 GB | Smaller and easier to run on 8 GB cards. |
+| 8 GB | `uCoder-8b-base` | `Q4_K_M` | 5.25 GB | Code-specialized, but it is a base model rather than a fully instruction-tuned one. |
+
+If a model does not fit entirely in VRAM, `llama.cpp` can spill layers to system RAM, but this guide does not recommend that mode for the main examples because it is slower and the fit becomes harder to reason about.
+
 Example search keywords for Hugging Face:
 
-- Qwen 3.6 GGUF
-- DeepSeek R1 GGUF
-- Distill GGUF
-- Mistral or Mixtral Instruct GGUF
+- `gpt-oss 20b GGUF`
+- `DeepSeek-Coder-V2-Lite-Instruct GGUF`
+- `Qwen2.5-Coder-14B-Instruct GGUF`
+- `Qwen2.5-Coder-7B-Instruct GGUF`
+- `uCoder-8b-base GGUF`
 
 For a first test, a 7B or 8B instruct/coder model with `Q4_K_M` quantization is usually easier to run than a larger model. However, smaller models are more likely to fail at long multi-step coding tasks, tool-use style interactions, and terminal operation. If Claw Code repeatedly produces malformed output, invents nonexistent commands, or cannot proceed with terminal-based work, try a larger or stronger coder/instruct model.
 
@@ -334,14 +354,18 @@ Get-ChildItem "$env:USERPROFILE\Documents\local-ai" -Recurse -Filter llama-serve
 
 Use the actual folder that contains `llama-server.exe`.
 
+Confirm that the CUDA runtime DLLs from your downloaded `cudart-llama-bin-win-cuda-<version>-x64.zip` package were extracted into the same `llama.cpp` folder as `llama-server.exe`.
+
 ### CUDA is installed, but the GPU is not used
 
 Check the following:
 
 - The NVIDIA driver is installed.
-- You are using a CUDA-enabled `llama.cpp` archive.
+- You are using a CUDA-enabled `llama.cpp` archive, not a CPU-only, Vulkan, SYCL, or HIP build.
 - CUDA 12 archives are paired with CUDA 12, and CUDA 13 archives are paired with CUDA 13.
 - You restarted Windows Terminal and checked `nvcc --version`.
+
+If the CUDA build starts but fails immediately, re-check that the DLL files from the `cudart-llama-bin-win-cuda-<version>-x64.zip` archive were extracted into the `llama.cpp` folder.
 
 ### The model is too slow
 
