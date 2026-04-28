@@ -18,7 +18,7 @@ OpenRouter provides an OpenAI-compatible API endpoint that can route requests to
 ## 1. Create an OpenRouter account
 
 1. Open OpenRouter:
-   - https://openrouter.ai/
+    - [OpenRouter](https://openrouter.ai/)
 2. Click **Sign In** or **Log In**.
 3. Sign in with one of the available login methods.
 4. After signing in, open the account or dashboard area.

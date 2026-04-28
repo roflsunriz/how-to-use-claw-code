@@ -18,7 +18,7 @@ OpenRouterは、複数のモデルプロバイダーをOpenAI互換APIとして�
 ## 1. OpenRouterのアカウントを作成する
 
 1. OpenRouterを開きます。
-   - https://openrouter.ai/
+    - [OpenRouter](https://openrouter.ai/)
 2. **Sign In**または**Log In**をクリックします。
 3. 利用可能なログイン方法を選んでログインします。
 4. ログイン後、アカウントまたはダッシュボードを開きます。

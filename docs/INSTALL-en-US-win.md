@@ -51,18 +51,18 @@ You can use any of the following methods.
 ### 1. Install or update PowerShell
 
 1. Open Windows Terminal with **Command Prompt**.
-   - Click the down arrow (`∨`) and choose **Command Prompt**.
+      - Click the down arrow (`∨`) and choose **Command Prompt**.
 2. Run the following command:
 
-   ```cmd
-   winget upgrade Microsoft.PowerShell --source winget
-   ```
+      ```cmd
+      winget upgrade Microsoft.PowerShell --source winget
+      ```
 
-   If PowerShell is not installed yet, run this instead:
+      If PowerShell is not installed yet, run this instead:
 
-   ```cmd
-   winget install Microsoft.PowerShell --source winget
-   ```
+      ```cmd
+      winget install Microsoft.PowerShell --source winget
+      ```
 
 3. Restart Windows Terminal.
 4. Open **Settings** from the down arrow (`∨`) menu.
@@ -89,21 +89,21 @@ After installation, restart Windows Terminal.
 1. Move to the directory where you want to place the source code.
    This guide uses the `Documents` folder:
 
-   ```powershell
-   Set-Location $env:USERPROFILE\Documents
-   ```
+      ```powershell
+      Set-Location $env:USERPROFILE\Documents
+      ```
 
 2. Clone the repository:
 
-   ```powershell
-   git clone https://github.com/ultraworkers/claw-code.git
-   ```
+      ```powershell
+      git clone https://github.com/ultraworkers/claw-code.git
+      ```
 
 3. Move into the cloned repository:
 
-   ```powershell
-   Set-Location .\claw-code\rust
-   ```
+      ```powershell
+      Set-Location .\claw-code\rust
+      ```
 
 ### 4. Install Rust
 
@@ -241,14 +241,14 @@ Open a new terminal after updating `Path`.
 
 1. Move to your own project repository:
 
-   ```powershell
-   Set-Location $env:USERPROFILE\Documents\my-repository
-   ```
+      ```powershell
+      Set-Location $env:USERPROFILE\Documents\my-repository
+      ```
 
 2. Start Claw Code:
 
-   ```powershell
-   claw --model "openai/gpt-5.5"
-   ```
+      ```powershell
+      claw --model "openai/gpt-5.5"
+      ```
 
 Replace the model name with the model you want to use.

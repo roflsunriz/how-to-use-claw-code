@@ -51,18 +51,18 @@
 ### 1. PowerShellをインストールまたは更新する
 
 1. Windows Terminalで **Command Prompt** を開きます。
-   - 下向き矢印（`∨`）をクリックして **Command Prompt** を選びます。
+      - 下向き矢印（`∨`）をクリックして **Command Prompt** を選びます。
 2. 次のコマンドを実行します。
 
-   ```cmd
-   winget upgrade Microsoft.PowerShell --source winget
-   ```
+      ```cmd
+      winget upgrade Microsoft.PowerShell --source winget
+      ```
 
-   PowerShellがまだインストールされていない場合は、代わりに次のコマンドを実行します。
+      PowerShellがまだインストールされていない場合は、代わりに次のコマンドを実行します。
 
-   ```cmd
-   winget install Microsoft.PowerShell --source winget
-   ```
+      ```cmd
+      winget install Microsoft.PowerShell --source winget
+      ```
 
 3. Windows Terminalを再起動します。
 4. 下向き矢印（`∨`）メニューから **Settings** を開きます。
@@ -89,21 +89,21 @@ winget install Git.Git --source winget
 1. ソースコードを置きたいディレクトリへ移動します。
    このガイドでは `Documents` フォルダを使います。
 
-   ```powershell
-   Set-Location $env:USERPROFILE\Documents
-   ```
+      ```powershell
+      Set-Location $env:USERPROFILE\Documents
+      ```
 
 2. リポジトリをクローンします。
 
-   ```powershell
-   git clone https://github.com/ultraworkers/claw-code.git
-   ```
+      ```powershell
+      git clone https://github.com/ultraworkers/claw-code.git
+      ```
 
 3. クローンしたリポジトリへ移動します。
 
-   ```powershell
-   Set-Location .\claw-code\rust
-   ```
+      ```powershell
+      Set-Location .\claw-code\rust
+      ```
 
 ### 4. Rustをインストールする
 
@@ -241,14 +241,14 @@ $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
 
 1. 自分のプロジェクトリポジトリへ移動します。
 
-   ```powershell
-   Set-Location $env:USERPROFILE\Documents\my-repository
-   ```
+      ```powershell
+      Set-Location $env:USERPROFILE\Documents\my-repository
+      ```
 
 2. Claw Codeを起動します。
 
-   ```powershell
-   claw --model "openai/gpt-5.5"
-   ```
+      ```powershell
+      claw --model "openai/gpt-5.5"
+      ```
 
 モデル名は、使いたいモデルに置き換えてください。
