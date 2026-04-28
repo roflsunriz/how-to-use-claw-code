@@ -1,114 +1,65 @@
-# Claw Code以外のおすすめコーディングエージェント
+# CLIにフォーカスしたおすすめコーディングエージェント
 
-このページはClaw Code以外で検討しやすいコーディングエージェントを日本語でまとめたものです。
+このページは「CLI（端末）での利用を第一に考える」観点で、実務に適したコーディングエージェントをまとめたものです。
 
-結論だけ先に書くと、**新規導入の本命は Cline、次点は OpenCode** です。  
-**CLIで堅実に使うなら Aider**、**既存ユーザーの移行先としては Roo Code は非推奨**です。  
-Claw Codeは将来性はありますが、現時点では「追跡対象」という位置づけです。
+要約（短く）
 
-## ざっくり結論
+- 最も柔軟でCLI中心の選択肢: OpenCode
+- 公式・商用エコシステムを重視したいCLIユーザー: Codex CLI
+- 軽量で日常編集向け: Aider
+- ターミナルUX/TUI重視: Crush
+- 拡張ワークフロー（MCP/Extensions）重視: Goose / Qwen Code
 
-1. **Cline**
-      - 総合力が最も高く、MCP、Marketplace、Skills、Resume、Checkpoints が一体化しています。
-      - IDE中心で使いたい人、チーム導入を考える人に向いています。
-2. **OpenCode**
-      - モデル差し替えの自由度と拡張性が最も高いです。
-      - OpenAI互換API、独自プロバイダー、plugin、skills、MCP を広く扱いたい人向けです。
-3. **Aider**
-      - CLIでコードを書く用途に強く、最小限の機能で安定して使えます。
-      - 拡張機構は弱いですが、シンプルさを重視するなら有力です。
-4. **Roo Code**
-      - 機能は豊富ですが、公式にサービス終了予定が案内されているため、新規導入には向きません。
+## 推奨トップ（CLI観点）
 
-## 各エージェントの見どころ
+1. OpenCode — 多プロバイダ対応と豊富な拡張が魅力。ローカルモデルやカスタム provider を組み込みやすく、セッション管理や webfetch 等の CLI 機能が充実しています。
+2. Codex CLI — OpenAI 系の公式 CLI。plugin / marketplace エコシステムと Ollama 等のローカル統合が強みで、商用環境に向きます。
+3. Aider — 学習コストが小さく安定して使える軽量 CLI ツール。日常の編集やペアプロ向けに最短距離で使えます。
+4. Crush — Charmbracelet 流の優れた TUI を持ち、端末での操作感を重視するユーザーに合います。
+5. Goose / Qwen Code — MCP・Extensions・Skills を重視する場合の有力候補。multi-provider 機能で複数サブスクやプロバイダーをまたいだ運用に向きます。
 
-### Cline
+## 各ツールのCLI観点ポイント
 
-Cline は、**機能の広さと完成度のバランスが最も良い**エージェントです。
+OpenCode
 
-- MCP、Marketplace、Skills が揃っています。
-- セッションの再開や履歴管理がしやすいです。
-- チェックポイントやタスク履歴など、長い作業を続けやすい仕組みがあります。
-- IDE埋め込みやSDKも含めて、使い方の導線が整っています。
+- CLI-first な拡張性: 75+ provider、plugins/skills、websearch/webfetch をネイティブでサポート。
+- セッションの継続・フォーク・共有、auto-compaction などエージェント基盤が充実。
+- 注意: compaction や model discovery、TUI の一部に粗さがあるため、運用ポリシーと監視が必要。
 
-向いている人:
+Codex CLI
 
-- まず1つだけ選びたい
-- IDE中心で使いたい
-- チームでの説明や運用を重視したい
+- OpenAI 公式の CLI。`config.toml` や Ollama 統合でカスタム provider / ローカルモデルの運用が可能。
+- plugin / marketplace の成長が速く、商用や組織利用での互換性が取りやすい。
+- 注意: provider 切替後の履歴表示や compact 周りの挙動は事前検証を推奨。
 
-注意点:
+Aider
 
-- Web Tools は provider 依存の条件があるため、モデル差し替え時の挙動を確認したほうがよいです。
-- checkpoint、terminal、MCP まわりには既知の課題があります。
+- `/ask`、`/architect`、`/web`、`--read` 等、端末操作で使いやすいモードが揃う。
+- Git/diff ベースの編集に馴染むため、既存の開発フローに入りやすい。
+- 注意: MCP・プラグイン・Marketplaceなど拡張機構は弱め。
 
-### OpenCode
+Crush
 
-OpenCode は、**自由度を最優先する人向けの強力な選択肢**です。
+- 優れた TUI と multi-model/LSP 対応が特徴。端末上で快適な操作感を提供。
+- 注意: websearch/webfetch や marketplace は限定的に見える。
 
-- 75以上の provider を扱える構成です。
-- 任意の OpenAI-compatible provider を追加できます。
-- plugin、skills、MCP、websearch、webfetch、headless server まで揃っています。
-- セッションの継続、分岐、共有、API化の発想が強いです。
+Goose / Qwen Code
 
-向いている人:
+- Goose: MCP/extension directory/skills marketplace が強く、session persistence や provider ブリッジが充実。
+- Qwen Code: `modelProviders` による multi-provider 切替、WebSearch/WebFetch、checkpointing などの CLI 機能を拡充中。
+- 注意: auth・provider 接続周りに recent issues があるため運用テストは必須。
 
-- OpenRouter 以外も含めて柔軟に使いたい
-- 端末中心で開発したい
-- 自分で拡張しながら使いたい
+## 選び方（CLI向け）
 
-注意点:
+- 自由度・拡張性を最大化したい: OpenCode
+- 既存のOpenAI系サブスクや商用運用を活かしたい: Codex CLI
+- 学習コストを抑え、安定して日常運用したい: Aider
+- ターミナル体験（UX）を最優先する: Crush
+- MCP/Extensions を中心にワークフローを組みたい: Goose / Qwen Code
 
-- 便利ですが、compaction や model discovery まわりはまだ荒い部分があります。
-- 構成の自由度が高いぶん、設定責任は利用者側に寄りやすいです。
+## 評価・検証チェックリスト（導入前）
 
-### Aider
-
-Aider は、**CLIで堅実にコードを直す用途に強い**です。
-
-- `/ask`、`/architect`、`/web` などの使い分けが明快です。
-- `--read` を使った読み取り中心の運用がしやすいです。
-- OpenRouter の model slug をそのまま指定できます。
-
-向いている人:
-
-- 余計な拡張は要らない
-- ペアプロをCLIでやりたい
-- 小さく安定した道具がほしい
-
-注意点:
-
-- MCP、plugin、skills、Marketplace のような拡張面は弱いです。
-- 今回の評価軸では、Cline や OpenCode より機能面で見劣りします。
-
-### Roo Code
-
-Roo Code は、**機能量だけ見ればかなり強い**です。
-
-- モデルやプロファイルの切り替えがしやすいです。
-- Skills、Marketplace、Checkpoints、context condensing などが揃っています。
-- 既存ユーザーには使いやすい部分が多いです。
-
-ただし、**公式に停止予定が案内されているため、新規導入はおすすめしません。**
-
-## 使い分けの目安
-
-- **最初の本命**: Cline
-- **自由度重視**: OpenCode
-- **CLIで堅実に使う**: Aider
-- **既存環境の移行対象**: Roo Code
-- **実験枠として追う**: Claw Code
-
-## 短いおすすめ
-
-迷ったら次の順で考えると選びやすいです。
-
-1. IDE中心で、機能の抜けが少ないものがほしいなら **Cline**
-2. プロバイダーや拡張の自由度を優先するなら **OpenCode**
-3. シンプルなCLI運用で十分なら **Aider**
-
-## 補足
-
-この比較では、公式ドキュメントで明示されていない機能は保守的に低めに評価しています。  
-そのため、ドキュメントが厚い Cline と OpenCode は有利になりやすいです。  
-また、**「OpenRouterで使える」ことと「そのエージェントの全機能が同じように使える」ことは別**です。モデル差し替え時は、Web Tools や compaction のような周辺機能も確認してください。
+1. provider を差し替えたときの Web Tools / compaction / session の振る舞いを検証
+2. local model（Ollama 等）を実運用で切り替えられるか確認
+3. plugin/skill の導入手順と権限モデルを確認
+4. セッション保存・resume/ fork の動作とストレージ要件を確認

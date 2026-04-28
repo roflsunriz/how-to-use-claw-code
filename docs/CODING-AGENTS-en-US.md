@@ -1,114 +1,65 @@
-# Recommended Coding Agents Other Than Claw Code
+# CLI-focused Recommended Coding Agents
 
-This page summarizes the coding agents that are worth considering besides Claw Code.
+This page collects coding agents selected specifically for terminal-first (CLI) use and focuses on agents that are practical to configure, run, and extend entirely from the command line.
 
-The short version is: **Cline is the best all-around choice, and OpenCode is the strongest choice for flexibility**.  
-If you want a simple CLI workflow, **Aider is still a strong option**.  
-**Roo Code is not recommended for new adoption** because its official shutdown notice makes long-term use a poor bet.  
-Claw Code itself looks promising, but it is still more of a tracking target than a mature default choice.
+Quick summary
 
-## Quick Ranking
+- Best overall CLI flexibility: OpenCode
+- Best for official/commercial ecosystems on CLI: Codex CLI
+- Best lightweight daily editing tool: Aider
+- Best terminal UX/TUI experience: Crush
+- Best for MCP/Extensions-driven workflows: Goose / Qwen Code
 
-1. **Cline**
-      - Best overall balance of features, documentation, and workflow integration.
-      - Strong for MCP, Marketplace, Skills, session resume, and checkpoints.
-2. **OpenCode**
-      - Best for provider flexibility and extensibility.
-      - Strong if you want OpenAI-compatible endpoints, custom providers, plugins, skills, and MCP.
-3. **Aider**
-      - Strong CLI-first coding assistant.
-      - Best when you want a simple, dependable tool rather than a large extension ecosystem.
-4. **Roo Code**
-      - Feature-rich, but not a good new investment because the project has an official shutdown timeline.
+## Top recommendations (CLI perspective)
 
-## What Makes Each One Worth Considering
+1. OpenCode — Broad multi-provider support and rich extension surface. Easy to integrate local models and custom providers; strong CLI primitives for sessions and webfetch.
+2. Codex CLI — OpenAI's official CLI with plugin/marketplace momentum and Ollama/local integrations suitable for commercial deployments.
+3. Aider — Lightweight, low-friction CLI-first assistant for everyday edits and pair-programming in the terminal.
+4. Crush — Polished TUI and multi-model/LSP support for users who spend most of their time in a terminal.
+5. Goose / Qwen Code — Strong MCP/extension ecosystems and multi-provider capabilities for building complex CLI workflows.
 
-### Cline
+## Per-tool CLI notes
 
-Cline is the **best balanced option overall**.
+OpenCode
 
-- It combines MCP, Marketplace, Skills, resume, and checkpoints into one workflow.
-- It is well suited for IDE-centric usage.
-- It has a strong documentation story and a mature feature surface.
+- CLI-first extensibility: supports 75+ providers, plugins/skills, native websearch/webfetch.
+- Full session features (continue/fork/share) and auto-compaction policies.
+- Caveat: compaction, model discovery, and some TUI areas still show rough edges — plan operational monitoring.
 
-Best for:
+Codex CLI
 
-- Users who want a first choice with the fewest compromises
-- Teams that need a tool they can explain and standardize
-- Developers who prefer IDE integration
+- Official OpenAI CLI. `config.toml` and Ollama integration enable custom provider/local model workflows.
+- Growing plugin/marketplace ecosystem and favorable for commercial/enterprise use.
+- Caveat: verify history visibility and compact behavior after provider switches.
 
-Caveats:
+Aider
 
-- Web Tools depend on provider-specific conditions, so model swapping can change behavior.
-- There are known issues around checkpoints, terminal integration, and MCP.
+- Practical CLI modes (`/ask`, `/architect`, `/web`, `--read`) and strong Git/diff editing flow compatibility.
+- Low adoption cost and predictable behavior for everyday edits.
+- Caveat: limited MCP/plugins/marketplace extensibility compared to OpenCode or Codex CLI.
 
-### OpenCode
+Crush
 
-OpenCode is the **most flexible and extensible** option in this group.
+- Polished TUI from Charmbracelet, with multi-model and LSP support for terminal-first power users.
+- Caveat: websearch/webfetch and marketplace features appear limited.
 
-- It supports 75+ providers.
-- You can add arbitrary OpenAI-compatible providers.
-- It includes plugins, skills, MCP, websearch, webfetch, and a headless server path.
-- Session continuation, branching, sharing, and API-oriented workflows are built in.
+Goose / Qwen Code
 
-Best for:
+- Goose: strong MCP/extension directory/skills marketplace and session persistence; can bridge CLI providers and existing subscriptions.
+- Qwen Code: multi-provider `modelProviders` switching, MCP, Skills, WebSearch/WebFetch, and checkpointing rapidly expanding.
+- Caveat: recent issues around auth and provider connections — validate stability in your environment.
 
-- Users who want the broadest provider choice
-- Terminal-first workflows
-- Power users who want to extend the agent stack themselves
+## How to choose (CLI-focused)
 
-Caveats:
+- Maximize freedom and extensibility: OpenCode
+- Leverage existing OpenAI subscriptions and enterprise readiness: Codex CLI
+- Minimal friction daily CLI edits: Aider
+- Terminal UX/TUI priority: Crush
+- Build extension-driven workflows (MCP/Skills): Goose / Qwen Code
 
-- Compaction and model discovery still have rough edges.
-- The higher flexibility shifts more configuration responsibility to the user.
+## Validation checklist (before adoption)
 
-### Aider
-
-Aider is a **practical CLI coding companion**.
-
-- Its `/ask`, `/architect`, and `/web` modes are straightforward.
-- It supports read-focused workflows well.
-- OpenRouter model slugs can be used directly.
-
-Best for:
-
-- Users who want a simple, low-surprise CLI tool
-- Pair-programming in the terminal
-- Small edits and steady day-to-day coding work
-
-Caveats:
-
-- It is weak on MCP, plugins, skills, and marketplace-style extensibility.
-- It does not match Cline or OpenCode on the broader feature checklist.
-
-### Roo Code
-
-Roo Code is still **feature-rich on paper**.
-
-- It has strong provider/profile switching.
-- Skills, Marketplace, checkpoints, and context condensing are all present.
-- Existing users may still find it comfortable.
-
-However, **it is not recommended for new adoption because the official shutdown notice changes the risk profile.**
-
-## Practical Selection Guide
-
-- **Best first choice**: Cline
-- **Best for flexibility**: OpenCode
-- **Best for CLI simplicity**: Aider
-- **Best as a migration target**: Roo Code
-- **Best as an experimental track**: Claw Code
-
-## Short Recommendation
-
-If you only want one answer:
-
-1. Choose **Cline** if you want the strongest all-around product.
-2. Choose **OpenCode** if provider freedom and extensibility matter most.
-3. Choose **Aider** if you want a lean CLI workflow with minimal overhead.
-
-## Notes
-
-This comparison is conservative when the official documentation does not clearly confirm a feature.  
-That tends to favor Cline and OpenCode because their docs are more complete.  
-Also, **being usable with OpenRouter is not the same as preserving every feature under OpenRouter**. When you swap providers, check surrounding features such as Web Tools and compaction behavior.
+1. Test Web Tools / compaction / session behavior when swapping providers
+2. Validate real-world switching for local models (Ollama etc.) and profile management
+3. Confirm plugin/skill installation steps and permission model via CLI
+4. Verify session persistence, resume/fork behavior and storage requirements
