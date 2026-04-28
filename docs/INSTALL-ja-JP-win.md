@@ -169,6 +169,19 @@ OpenAI互換APIエンドポイントの例:
 - `https://api.cerebras.ai/v1`
 - ローカルモデル（Ollama、llama.cpp、LM Studioなど）では `http://127.0.0.1:8000/v1`
 
+
+もしまだ Claw Code の `rust` ディレクトリにいない場合は、先に移動してください。例:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
+
+またはリポジトリの親フォルダからは相対パスで移動できます。
+
+```powershell
+Set-Location .\claw-code\rust
+```
+
 その後、ビルドの種類に合ったコマンドでClaw Codeを起動します。
 
 デバッグビルドの場合:
@@ -201,7 +214,12 @@ OpenAI互換APIエンドポイントの例:
 
 永続的な環境変数を設定した後は、新しいターミナルを開いてください。
 
-その後、ビルドの種類に合ったコマンドでClaw Codeを起動します。
+
+永続的な環境変数を設定した後など、新しいターミナルを開いた場合は、`rust` ディレクトリへ移動してから実行してください。例:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
 
 デバッグビルドの場合:
 

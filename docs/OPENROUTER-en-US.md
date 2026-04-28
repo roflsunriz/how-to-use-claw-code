@@ -136,6 +136,18 @@ Replace `YOUR_OPENROUTER_API_KEY` with your actual OpenRouter API key.
 
 Move to the Claw Code `rust` directory if you are running the executable from the build output directory.
 
+For example, if you cloned the repository into your Documents folder, run:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
+
+Or, if you are already in the repository parent folder, use a relative path:
+
+```powershell
+Set-Location .\claw-code\rust
+```
+
 Then start Claw Code with an OpenRouter model name.
 
 For a debug build:

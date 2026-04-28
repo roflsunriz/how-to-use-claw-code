@@ -136,6 +136,18 @@ $env:OPENAI_BASE_URL = "https://openrouter.ai/api/v1"
 
 ビルド出力先から実行する場合は、Claw Codeの`rust`ディレクトリへ移動します。
 
+たとえば、リポジトリを`Documents`にクローンした場合は次のようにします。
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
+
+または、リポジトリの親フォルダにいる場合は相対パスで移動できます。
+
+```powershell
+Set-Location .\claw-code\rust
+```
+
 その後、OpenRouterのモデル名を指定してClaw Codeを起動します。
 
 Debugビルドの場合:

@@ -169,6 +169,19 @@ Examples of OpenAI-compatible API endpoints:
 - `https://api.cerebras.ai/v1`
 - `http://127.0.0.1:8000/v1` for local models such as Ollama, llama.cpp, or LM Studio
 
+
+If you are not already in the Claw Code `rust` directory, change to it first. For example:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
+
+Or, if you are in the repository parent folder, use a relative path:
+
+```powershell
+Set-Location .\claw-code\rust
+```
+
 Then start Claw Code. Use the command that matches the build type you created.
 
 For a debug build:
@@ -201,7 +214,12 @@ Use it only if you understand the security risk.
 
 Open a new terminal after setting permanent environment variables.
 
-Then start Claw Code. Use the command that matches the build type you created.
+
+If you opened a new terminal (for example after setting persistent env vars), make sure you're in the `rust` directory before running Claw. Example:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
 
 For a debug build:
 

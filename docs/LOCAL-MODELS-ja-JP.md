@@ -324,6 +324,18 @@ $env:OPENAI_API_KEY = "local"
 $env:OPENAI_BASE_URL = "http://127.0.0.1:8000/v1"
 ```
 
+もしまだ Claw Code の `rust` ディレクトリにいない場合は、先に移動してください。例:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
+
+または親フォルダにいる場合は相対パスで移動できます。
+
+```powershell
+Set-Location .\claw-code\rust
+```
+
 その後、`llama-server.exe`起動時に指定したモデルエイリアスを使ってClaw Codeを起動します。プロバイダー名はAPIの種別特定に使われるので、モデル名には`openai/`を付与します。
 
 Debugビルドの場合:
