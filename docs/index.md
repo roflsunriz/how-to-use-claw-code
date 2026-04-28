@@ -2,6 +2,11 @@
 
 Guides for installing and using Claw Code.
 
+## Claw Code
+
+- [About Claw Code (English)](CLAWCODE-en-US.md)
+- [Claw Codeについて (日本語)](CLAWCODE-ja-JP.md)
+
 ## Windows guides
 
 - [How to install Claw Code on Windows](INSTALL-en-US-win.md)

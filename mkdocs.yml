@@ -12,6 +12,9 @@ site_url: https://roflsunriz.github.io/how-to-use-claw-code/
 
 nav:
   - Home: index.md
+  - Claw Code:
+      - Claw Code(English): CLAWCODE-en-US.md
+      - Claw Code(日本語): CLAWCODE-ja-JP.md
   - Install:
       - Install(English): INSTALL-en-US-win.md
       - Install(日本語): INSTALL-ja-JP-win.md
