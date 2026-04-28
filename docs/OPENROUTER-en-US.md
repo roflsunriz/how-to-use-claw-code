@@ -89,9 +89,11 @@ For coding tasks, consider these categories:
 These are the most practical choices for Claw Code:
 
 - **Best overall split setup**:
+  - Most Hardest tasks: `anthropic/claude-opus-4.6` / `openai/gpt-5.5-pro`
   - Hard tasks: `anthropic/claude-sonnet-4.6`
   - Easy to medium tasks: `google/gemini-3-flash-preview`
 - **Lowest-cost split setup**:
+  - Most Hardest tasks: `x-ai/grok-4.20-multi-agent`
   - Hard tasks: `deepseek/deepseek-v4-pro`
   - Easy tasks: `deepseek/deepseek-v4-flash`
 - **Single-model choice for general use**: `google/gemini-3-flash-preview`
@@ -106,6 +108,8 @@ Model availability and names can change, so always confirm the current model slu
 Examples of the kind of model names you may see:
 
 ```txt
+anthropic/claude-opus-4.6
+openai/gpt-5.5-pro
 anthropic/claude-sonnet-4.6
 google/gemini-3-flash-preview
 deepseek/deepseek-v4-pro
@@ -114,7 +118,10 @@ openai/gpt-5.5
 openai/gpt-5.4-mini
 google/gemini-3.1-pro-preview
 qwen/qwen3.6-plus
-x-ai/grok-4.20
+moonshotai/kimi-k2.6
+minimax/minimax-m2.7
+z-ai/glm-5.1
+x-ai/grok-code-fast-1
 ```
 
 If a model fails to start, re-check the exact model slug on OpenRouter and confirm that your account has enough credits if the model is paid. For free models, also check whether the model is still available and whether the request is being rejected by rate limits such as `429 Too Many Requests`.

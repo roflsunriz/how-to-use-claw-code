@@ -89,9 +89,11 @@ OpenRouterのモデルページで、次の点を確認します。
 Claw Codeでは次の構成が実用的です。
 
 - **総合的におすすめの split 構成**
+  - 最も難しいタスク: `anthropic/claude-opus-4.6` / `openai/gpt-5.5-pro`
   - 難しいタスク: `anthropic/claude-sonnet-4.6`
   - 簡単〜中程度のタスク: `google/gemini-3-flash-preview`
 - **最安重視の split 構成**
+  - 最も難しいタスク: `x-ai/grok-4.20-multi-agent`
   - 難しいタスク: `deepseek/deepseek-v4-pro`
   - 簡単タスク: `deepseek/deepseek-v4-flash`
 - **単一モデルで使うなら**: `google/gemini-3-flash-preview`
@@ -106,6 +108,8 @@ Claw Codeでは次の構成が実用的です。
 表示される可能性があるモデル名の例:
 
 ```txt
+anthropic/claude-opus-4.6
+openai/gpt-5.5-pro
 anthropic/claude-sonnet-4.6
 google/gemini-3-flash-preview
 deepseek/deepseek-v4-pro
@@ -114,7 +118,10 @@ openai/gpt-5.5
 openai/gpt-5.4-mini
 google/gemini-3.1-pro-preview
 qwen/qwen3.6-plus
-x-ai/grok-4.20
+moonshotai/kimi-k2.6
+minimax/minimax-m2.7
+z-ai/glm-5.1
+x-ai/grok-code-fast-1
 ```
 
 モデル起動に失敗する場合は、OpenRouterで正確なモデルslugを確認し、有料モデルの場合はアカウントに十分なクレジットがあるかも確認してください。無料モデルの場合は、モデルが現在も提供されているか、`429 Too Many Requests`のようなレート制限で拒否されていないかも確認してください。
