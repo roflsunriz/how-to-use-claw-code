@@ -22,6 +22,10 @@
 
 ??? info "管理者として開く"
 
+      注: 最初に Windows Terminal を管理者として開いておけば、同じ管理者セッション内で
+      `winget install` を実行しても都度 UAC が表示されません。管理者ターミナルを開くときに
+      一度だけ許可すれば便利です。
+
       方法3: 「ファイル名を指定して実行」から管理者として開く
 
       1. <kbd>Windows</kbd> + <kbd>R</kbd> を押します。
@@ -118,6 +122,12 @@ winget install Rustlang.Rustup --source winget
 ### 5. ソースコードからClaw Codeをビルドする
 
 クローンした `claw-code\rust` ディレクトリ内で、次のどちらかのコマンドを実行します。
+
+もしまだそのディレクトリにいない場合は、次のコマンドで移動してください。
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
 
 デバッグビルドの場合:
 

@@ -22,6 +22,10 @@ You can use any of the following methods.
 
 ??? info "Open as administorator"
 
+      Note: If you open Windows Terminal once as an administrator, you won't be prompted by UAC for each
+      `winget install` during that elevated session — you only approve the UAC once when opening the
+      administrator terminal.
+
       Method 3: Open as administrator from the Run dialog
 
       1. Press <kbd>Windows</kbd> + <kbd>R</kbd>.
@@ -118,6 +122,12 @@ After installation, restart Windows Terminal.
 ### 5. Build Claw Code from source
 
 From the cloned `claw-code\rust` directory, run one of the following commands.
+
+If you are not already in that directory, run:
+
+```powershell
+Set-Location "$env:USERPROFILE\Documents\claw-code\rust"
+```
 
 For a debug build:
 
