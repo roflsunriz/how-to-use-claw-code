@@ -4,8 +4,8 @@ Guides for installing and using Claw Code.
 
 ## Windows guides
 
-- [How to Use Claw Code on Windows](USAGE-en-US-win.md)
-- [WindowsでClaw Codeを使う方法](USAGE-ja-JP-win.md)
+- [How to install Claw Code on Windows](INSTALL-en-US-win.md)
+- [WindowsでClaw Codeをインストールする方法](INSTALL-ja-JP-win.md)
 
 ## Provider guides
 
@@ -18,6 +18,8 @@ Guides for installing and using Claw Code.
 
 - [Local Models with llama.cpp on Windows](LOCAL-MODELS-en-US.md)
 - [Windowsでllama.cppのローカルモデルを使う](LOCAL-MODELS-ja-JP.md)
+
+## Others
 
 ### Coding agents
 

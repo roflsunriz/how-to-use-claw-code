@@ -86,7 +86,7 @@ For coding tasks, consider these categories:
 
 ### Recommended model selection
 
-Based on the research notes in `deep-research/openrouter-models.md`, these are the most practical choices for Claw Code:
+These are the most practical choices for Claw Code:
 
 - **Best overall split setup**:
   - Hard tasks: `anthropic/claude-sonnet-4.6`

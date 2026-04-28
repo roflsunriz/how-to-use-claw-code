@@ -12,19 +12,20 @@ site_url: https://roflsunriz.github.io/how-to-use-claw-code/
 
 nav:
   - Home: index.md
-  - Windows:
-      - English: USAGE-en-US-win.md
-      - 日本語: USAGE-ja-JP-win.md
+  - Install:
+      - Install(English): Install-en-US-win.md
+      - インストール(日本語): Install-ja-JP-win.md
   - Providers:
       - OpenRouter:
-          - English: OPENROUTER-en-US.md
-          - 日本語: OPENROUTER-ja-JP.md
+          - OpenRouter(English): OPENROUTER-en-US.md
+          - OpenRouter(日本語): OPENROUTER-ja-JP.md
       - Local Models:
-          - English: LOCAL-MODELS-en-US.md
-          - 日本語: LOCAL-MODELS-ja-JP.md
+          - Local Models(English): LOCAL-MODELS-en-US.md
+          - Local Models(日本語): LOCAL-MODELS-ja-JP.md
+  - Others:
       - Coding Agents:
-          - English: CODING-AGENTS-en-US.md
-          - 日本語: CODING-AGENTS-ja-JP.md
+          - Coding Agents(English): CODING-AGENTS-en-US.md
+          - Coding Agents(日本語): CODING-AGENTS-ja-JP.md
 
 theme:
   name: material

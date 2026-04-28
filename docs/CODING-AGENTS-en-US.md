@@ -1,6 +1,6 @@
 # Recommended Coding Agents Other Than Claw Code
 
-This page summarizes the coding agents that are worth considering besides Claw Code, based on `deep-research/coding-agents-recommendation.md`.
+This page summarizes the coding agents that are worth considering besides Claw Code.
 
 The short version is: **Cline is the best all-around choice, and OpenCode is the strongest choice for flexibility**.  
 If you want a simple CLI workflow, **Aider is still a strong option**.  
@@ -10,16 +10,16 @@ Claw Code itself looks promising, but it is still more of a tracking target than
 ## Quick Ranking
 
 1. **Cline**
-   - Best overall balance of features, documentation, and workflow integration.
-   - Strong for MCP, Marketplace, Skills, session resume, and checkpoints.
+      - Best overall balance of features, documentation, and workflow integration.
+      - Strong for MCP, Marketplace, Skills, session resume, and checkpoints.
 2. **OpenCode**
-   - Best for provider flexibility and extensibility.
-   - Strong if you want OpenAI-compatible endpoints, custom providers, plugins, skills, and MCP.
+      - Best for provider flexibility and extensibility.
+      - Strong if you want OpenAI-compatible endpoints, custom providers, plugins, skills, and MCP.
 3. **Aider**
-   - Strong CLI-first coding assistant.
-   - Best when you want a simple, dependable tool rather than a large extension ecosystem.
+      - Strong CLI-first coding assistant.
+      - Best when you want a simple, dependable tool rather than a large extension ecosystem.
 4. **Roo Code**
-   - Feature-rich, but not a good new investment because the project has an official shutdown timeline.
+      - Feature-rich, but not a good new investment because the project has an official shutdown timeline.
 
 ## What Makes Each One Worth Considering
 

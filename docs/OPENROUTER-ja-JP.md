@@ -86,7 +86,7 @@ OpenRouterのモデルページで、次の点を確認します。
 
 ### おすすめのモデル選定
 
-`deep-research/openrouter-models.md` の調査結果を踏まえると、Claw Codeでは次の構成が実用的です。
+Claw Codeでは次の構成が実用的です。
 
 - **総合的におすすめの split 構成**
   - 難しいタスク: `anthropic/claude-sonnet-4.6`
