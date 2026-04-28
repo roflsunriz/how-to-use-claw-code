@@ -26,7 +26,7 @@
 ├── llama.cpp\
 │   └── llama-server.exe
 └── models\
-    └── qwen3.6-35b-iq4\
+    └── devstral-small-2507-q4km\
         └── model.gguf
 ```
 
@@ -201,30 +201,34 @@ hf login
 
 2026/04時点では、実在するGGUFリポジトリだけを書き、しかも選ぶ量子化がVRAM帯に収まるものだけを載せます。モデルカードにある実際のファイルサイズを見て、対象VRAMに少し余裕があるものを選んでください。
 
+今回の調査結果では、`Devstral-Small-2507`、`Qwen3-Coder-30B-A3B-Instruct`、`Qwen2.5-Coder-14B-Instruct`、`Qwen2.5-Coder-7B-Instruct`、そして長文効率を重視する場合の`DeepSeek-Coder-V2-Lite-Instruct`が、実運用での有力候補です。
+
 VRAM別のおすすめは次のとおりです。
 
-| VRAM | モデル | GGUF量子化 | サイズ | 備考 |
+| VRAM | モデル | GGUF量子化 | 使いどころ | 備考 |
 | --- | --- | --- | --- | --- |
-| 16 GB | `gpt-oss-20b` | `Q4_K_M` | 15.8 GB | 推論とツール利用寄りのオープンウェイトモデルで、16 GBクラスに収まります。 |
-| 16 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q6_K` | 14.1 GB | コード寄りで、16 GBの範囲に余裕を残しやすいです。 |
-| 16 GB | `Qwen2.5-Coder-14B-Instruct` | `Q8_0` | 15.7 GB | 密な構造のコーダーで、16 GBクラスに収まります。 |
-| 12 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` | 10.4 GB | 12 GBカード向けの安全な候補です。 |
-| 12 GB | `Qwen2.5-Coder-14B-Instruct` | `Q4_K_M` | 8.99 GB | 10 GB級よりも余裕があります。 |
-| 8 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q3_K_S` | 7.49 GB | コード専用で、8 GBの範囲内に収まります。 |
-| 8 GB | `Qwen2.5-Coder-7B-Instruct` | `Q4_K_M` | 4.68 GB | 8 GBカードで扱いやすい小さめの候補です。 |
-| 8 GB | `uCoder-8b-base` | `Q4_K_M` | 5.25 GB | コード特化のベースモデルです。完全なInstructモデルではありません。 |
+| 32 GB | `mistralai/Devstral-Small-2507_gguf` | `Q5_K_M` | 128k native / 約90k程度まで現実的 | レポートの最有力。エージェント用途の本命です。 |
+| 32 GB | `unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF` | `Q4_K_M` | 262k native / 100k超級も狙いやすい | 長文とツール利用を重視するなら強い候補です。 |
+| 24 GB | `mistralai/Devstral-Small-2507_gguf` | `Q4_K_M` | 128k native / 余裕を残しやすい | もっとも堅い選択です。 |
+| 24 GB | `unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF` | `Q4_K_M` | 262k native / 3万token超級 | MoE系の最新候補として有力です。 |
+| 16 GB | `Qwen/Qwen2.5-Coder-14B-Instruct-GGUF` | `Q4_K_M` | フル32,768 tokens / 実用24k-30k程度 | 密なコーダーで、16 GB帯の安全策です。 |
+| 16 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` または `Q6_K` | 長文効率重視 / GGUFでは実装差あり | VRAMの単純比較よりも長文効率を優先する場合に候補です。 |
+| 12 GB | `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF` | `Q4_K_M` | フル32,768 tokens | 12 GB帯で最も無難です。 |
+| 12 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` | 長文効率重視 / GGUFでは実装差あり | 長文資料やリポジトリ作業向きの代替候補です。 |
+| 8 GB | `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF` | `Q4_K_M` | フル32,768 tokens | 8 GB帯の安全策です。 |
 
 `llama.cpp`はVRAMに収まらないモデルをRAMへ逃がして動かすこともできますが、このガイドの主な例では扱いません。速度が落ち、VRAM帯ごとの比較もしづらくなるためです。
 
 Hugging Faceでは、たとえば次のようなキーワードで探します。
 
-- `gpt-oss 20b GGUF`
+- `Devstral-Small-2507 GGUF`
+- `Qwen3-Coder-30B-A3B-Instruct GGUF`
 - `DeepSeek-Coder-V2-Lite-Instruct GGUF`
 - `Qwen2.5-Coder-14B-Instruct GGUF`
 - `Qwen2.5-Coder-7B-Instruct GGUF`
-- `uCoder-8b-base GGUF`
+- `Qwen2.5-Coder-32B-Instruct GGUF`
 
-最初の動作確認では、7Bまたは8B程度の`Instruct`/`Coder`モデルで、`Q4_K_M`量子化のものを選ぶと扱いやすいです。ただし、小さいモデルほど長い複数ステップのコーディング作業、ツール利用風の対話、ターミナル操作に失敗しやすくなります。Claw Codeの出力が崩れる、存在しないコマンドを作る、ターミナル作業を進められないといった場合は、より大きい、またはより性能の高い`Coder`/`Instruct`モデルを試してください。
+最初の動作確認では、`Qwen2.5-Coder-7B-Instruct-GGUF`の`Q4_K_M`量子化がいちばん安全で扱いやすいです。Claw Codeの出力が崩れる、存在しないコマンドを作る、ターミナル作業を進められないといった場合は、`Qwen2.5-Coder-14B-Instruct-GGUF`か`Devstral-Small-2507`へ上げてください。
 
 ## 7. hfでモデルをダウンロードする
 
@@ -250,19 +254,19 @@ hf download REPOSITORY_NAME FILE_NAME.gguf --local-dir .\MODEL_FOLDER
 例:
 
 ```powershell
-hf download unsloth/Qwen3.6-35B-A3B-GGUF Qwen3.6-35B-A3B-UD-IQ4_XS.gguf --local-dir .\qwen3.6-35b-iq4
+hf download mistralai/Devstral-Small-2507_gguf Devstral-Small-2507-Q4_K_M.gguf --local-dir .\devstral-small-2507-q4km
 ```
 
 ダウンロード後、ファイルが存在することを確認します。
 
 ```powershell
-Get-ChildItem .\qwen3.6-35b-iq4 -Filter *.gguf
+Get-ChildItem .\devstral-small-2507-q4km -Filter *.gguf
 ```
 
 扱いやすいように、モデルファイル名を`model.gguf`へ変更しておくこともできます。
 
 ```powershell
-Rename-Item .\qwen3.6-35b-iq4\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf model.gguf
+Rename-Item .\devstral-small-2507-q4km\Devstral-Small-2507-Q4_K_M.gguf model.gguf
 ```
 
 ## 8. llama-server.exeを起動する
@@ -277,10 +281,10 @@ Set-Location "$env:USERPROFILE\Documents\local-ai\llama.cpp"
 
 ```powershell
 .\llama-server.exe `
-  -m "$env:USERPROFILE\Documents\local-ai\models\qwen3.6-35b-iq4\model.gguf" `
+  -m "$env:USERPROFILE\Documents\local-ai\models\devstral-small-2507-q4km\model.gguf" `
   --host 127.0.0.1 `
   --port 8000 `
-  --alias qwen3.6-35b-iq4-local `
+  --alias devstral-small-2507-q4km-local `
   -c 8192
 ```
 
@@ -306,7 +310,7 @@ Invoke-RestMethod `
   -Uri "http://127.0.0.1:8000/v1/chat/completions" `
   -Method Post `
   -ContentType "application/json" `
-  -Body '{"model":"qwen3.6-35b-iq4-local","messages":[{"role":"user","content":"Say hello in one sentence."}]}'
+  -Body '{"model":"devstral-small-2507-q4km-local","messages":[{"role":"user","content":"Say hello in one sentence."}]}'
 ```
 
 正常に動作していれば、ローカルモデルからの応答が返ります。
@@ -325,19 +329,19 @@ $env:OPENAI_BASE_URL = "http://127.0.0.1:8000/v1"
 Debugビルドの場合:
 
 ```powershell
-.\target\debug\claw.exe --model "openai/qwen3.6-35b-iq4-local"
+.\target\debug\claw.exe --model "openai/devstral-small-2507-q4km-local"
 ```
 
 Releaseビルドの場合:
 
 ```powershell
-.\target\release\claw.exe --model "openai/qwen3.6-35b-iq4-local"
+.\target\release\claw.exe --model "openai/devstral-small-2507-q4km-local"
 ```
 
 すでに`claw.exe`へ`Path`を通している場合は、次のように実行できます。
 
 ```powershell
-claw --model "openai/qwen3.6-35b-iq4-local"
+claw --model "openai/devstral-small-2507-q4km-local"
 ```
 
 ## トラブルシューティング

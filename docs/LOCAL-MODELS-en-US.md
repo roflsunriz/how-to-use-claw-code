@@ -26,7 +26,7 @@ This guide uses the following folders:
 ├── llama.cpp\
 │   └── llama-server.exe
 └── models\
-    └── qwen3.6-35b-iq4\
+    └── devstral-small-2507-q4km\
         └── model.gguf
 ```
 
@@ -201,30 +201,34 @@ When selecting a model, check the following points:
 
 As of 2026/04, do not guess. Only list models that have a real GGUF repository and whose selected quantization fits the target VRAM size with some headroom for the KV cache and runtime overhead.
 
+The current research-backed starting points are `Devstral-Small-2507`, `Qwen3-Coder-30B-A3B-Instruct`, `Qwen2.5-Coder-14B-Instruct`, `Qwen2.5-Coder-7B-Instruct`, and `DeepSeek-Coder-V2-Lite-Instruct` when you care more about long-context efficiency than a simple dense-model fit.
+
 Recommended starting points by GPU memory:
 
-| VRAM | Model | GGUF quant | Size | Notes |
+| VRAM | Model | GGUF quant | Fit / context | Notes |
 | --- | --- | --- | --- | --- |
-| 16 GB | `gpt-oss-20b` | `Q4_K_M` | 15.8 GB | Open-weight reasoning and tool-use model that fits the 16 GB class. |
-| 16 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q6_K` | 14.1 GB | Code-focused and leaves more headroom than a near-ceiling fit. |
-| 16 GB | `Qwen2.5-Coder-14B-Instruct` | `Q8_0` | 15.7 GB | Strong dense coder option that still fits the class. |
-| 12 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` | 10.4 GB | Safe fit for most 12 GB cards. |
-| 12 GB | `Qwen2.5-Coder-14B-Instruct` | `Q4_K_M` | 8.99 GB | More headroom than the 10 GB-class options. |
-| 8 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q3_K_S` | 7.49 GB | Code-specific and under the 8 GB line. |
-| 8 GB | `Qwen2.5-Coder-7B-Instruct` | `Q4_K_M` | 4.68 GB | Smaller and easier to run on 8 GB cards. |
-| 8 GB | `uCoder-8b-base` | `Q4_K_M` | 5.25 GB | Code-specialized, but it is a base model rather than a fully instruction-tuned one. |
+| 32 GB | `mistralai/Devstral-Small-2507_gguf` | `Q5_K_M` | 128k native / around 90k usable headroom | Best overall agentic-coding choice in the report. |
+| 32 GB | `unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF` | `Q4_K_M` | 262k native / around 100k+ practical headroom | Strong latest-style option for long-context tool use. |
+| 24 GB | `mistralai/Devstral-Small-2507_gguf` | `Q4_K_M` | 128k native / around 50k+ headroom | Conservative fit with the highest confidence. |
+| 24 GB | `unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF` | `Q4_K_M` | 262k native / around 30k+ headroom | Good if you want a MoE coder with a very long context. |
+| 16 GB | `Qwen/Qwen2.5-Coder-14B-Instruct-GGUF` | `Q4_K_M` | Full 32,768 tokens / roughly 24k-30k practical | Strong dense coder and the safest 16 GB recommendation. |
+| 16 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` or `Q6_K` | Long-context specialist / runtime-dependent under GGUF | Worth testing if long-context efficiency matters more than a simple VRAM fit. |
+| 12 GB | `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF` | `Q4_K_M` | Full 32,768 tokens | Most reliable 12 GB option. |
+| 12 GB | `DeepSeek-Coder-V2-Lite-Instruct` | `Q4_K_M` | Long-context specialist / runtime-dependent under GGUF | Good fallback for long documents and repo work. |
+| 8 GB | `Qwen/Qwen2.5-Coder-7B-Instruct-GGUF` | `Q4_K_M` | Full 32,768 tokens | Safest 8 GB recommendation. |
 
 If a model does not fit entirely in VRAM, `llama.cpp` can spill layers to system RAM, but this guide does not recommend that mode for the main examples because it is slower and the fit becomes harder to reason about.
 
 Example search keywords for Hugging Face:
 
-- `gpt-oss 20b GGUF`
+- `Devstral-Small-2507 GGUF`
+- `Qwen3-Coder-30B-A3B-Instruct GGUF`
 - `DeepSeek-Coder-V2-Lite-Instruct GGUF`
 - `Qwen2.5-Coder-14B-Instruct GGUF`
 - `Qwen2.5-Coder-7B-Instruct GGUF`
-- `uCoder-8b-base GGUF`
+- `Qwen2.5-Coder-32B-Instruct GGUF`
 
-For a first test, a 7B or 8B instruct/coder model with `Q4_K_M` quantization is usually easier to run than a larger model. However, smaller models are more likely to fail at long multi-step coding tasks, tool-use style interactions, and terminal operation. If Claw Code repeatedly produces malformed output, invents nonexistent commands, or cannot proceed with terminal-based work, try a larger or stronger coder/instruct model.
+For a first test, `Qwen2.5-Coder-7B-Instruct-GGUF` with `Q4_K_M` quantization is usually the easiest safe option. If Claw Code repeatedly produces malformed output, invents nonexistent commands, or cannot proceed with terminal-based work, move up to `Qwen2.5-Coder-14B-Instruct-GGUF` or `Devstral-Small-2507`.
 
 ## 7. Download a model with hf
 
@@ -250,19 +254,19 @@ Replace the placeholders:
 Example:
 
 ```powershell
-hf download unsloth/Qwen3.6-35B-A3B-GGUF Qwen3.6-35B-A3B-UD-IQ4_XS.gguf --local-dir .\qwen3.6-35b-iq4
+hf download mistralai/Devstral-Small-2507_gguf Devstral-Small-2507-Q4_K_M.gguf --local-dir .\devstral-small-2507-q4km
 ```
 
 After downloading, confirm the file exists:
 
 ```powershell
-Get-ChildItem .\qwen3.6-35b-iq4 -Filter *.gguf
+Get-ChildItem .\devstral-small-2507-q4km -Filter *.gguf
 ```
 
 For convenience, you can rename the model file to `model.gguf`:
 
 ```powershell
-Rename-Item .\qwen3.6-35b-iq4\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf model.gguf
+Rename-Item .\devstral-small-2507-q4km\Devstral-Small-2507-Q4_K_M.gguf model.gguf
 ```
 
 ## 8. Start llama-server.exe
@@ -277,10 +281,10 @@ Start the server:
 
 ```powershell
 .\llama-server.exe `
-  -m "$env:USERPROFILE\Documents\local-ai\models\qwen3.6-35b-iq4\model.gguf" `
+  -m "$env:USERPROFILE\Documents\local-ai\models\devstral-small-2507-q4km\model.gguf" `
   --host 127.0.0.1 `
   --port 8000 `
-  --alias qwen3.6-35b-iq4-local `
+  --alias devstral-small-2507-q4km-local `
   -c 8192
 ```
 
@@ -306,7 +310,7 @@ Invoke-RestMethod `
   -Uri "http://127.0.0.1:8000/v1/chat/completions" `
   -Method Post `
   -ContentType "application/json" `
-  -Body '{"model":"qwen3.6-35b-iq4-local","messages":[{"role":"user","content":"Say hello in one sentence."}]}'
+  -Body '{"model":"devstral-small-2507-q4km-local","messages":[{"role":"user","content":"Say hello in one sentence."}]}'
 ```
 
 If the server is working, you should receive a response from the local model.
@@ -325,19 +329,19 @@ Then start Claw Code with the model alias you passed to `llama-server.exe`. The 
 For a debug build:
 
 ```powershell
-.\target\debug\claw.exe --model "openai/qwen3.6-35b-iq4-local"
+.\target\debug\claw.exe --model "openai/devstral-small-2507-q4km-local"
 ```
 
 For a release build:
 
 ```powershell
-.\target\release\claw.exe --model "openai/qwen3.6-35b-iq4-local"
+.\target\release\claw.exe --model "openai/devstral-small-2507-q4km-local"
 ```
 
 If `claw.exe` is already in your `Path`, you can run:
 
 ```powershell
-claw --model "openai/qwen3.6-35b-iq4-local"
+claw --model "openai/devstral-small-2507-q4km-local"
 ```
 
 ## Troubleshooting
