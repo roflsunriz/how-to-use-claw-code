@@ -106,7 +106,10 @@ Model availability and names can change, so always confirm the current model slu
 Examples of the kind of model names you may see:
 
 ```txt
-anthropic/claude-opus-4.7
+anthropic/claude-sonnet-4.6
+google/gemini-3-flash-preview
+deepseek/deepseek-v4-pro
+deepseek/deepseek-v4-flash
 openai/gpt-5.5
 openai/gpt-5.4-mini
 google/gemini-3.1-pro-preview

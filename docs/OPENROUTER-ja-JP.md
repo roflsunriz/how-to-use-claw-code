@@ -106,7 +106,10 @@ OpenRouterのモデルページで、次の点を確認します。
 表示される可能性があるモデル名の例:
 
 ```txt
-anthropic/claude-opus-4.7
+anthropic/claude-sonnet-4.6
+google/gemini-3-flash-preview
+deepseek/deepseek-v4-pro
+deepseek/deepseek-v4-flash
 openai/gpt-5.5
 openai/gpt-5.4-mini
 google/gemini-3.1-pro-preview
