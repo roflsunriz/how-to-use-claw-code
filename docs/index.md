@@ -18,3 +18,8 @@ Guides for installing and using Claw Code.
 
 - [Local Models with llama.cpp on Windows](LOCAL-MODELS-en-US.md)
 - [Windowsでllama.cppのローカルモデルを使う](LOCAL-MODELS-ja-JP.md)
+
+### Coding agents
+
+- [Recommended Coding Agents Other Than Claw Code](CODING-AGENTS-en-US.md)
+- [Claw Code以外のおすすめコーディングエージェント](CODING-AGENTS-ja-JP.md)

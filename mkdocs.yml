@@ -22,6 +22,9 @@ nav:
       - Local Models:
           - English: LOCAL-MODELS-en-US.md
           - 日本語: LOCAL-MODELS-ja-JP.md
+      - Coding Agents:
+          - English: CODING-AGENTS-en-US.md
+          - 日本語: CODING-AGENTS-ja-JP.md
 
 theme:
   name: material
