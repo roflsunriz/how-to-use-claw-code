@@ -123,10 +123,8 @@ winget install Nvidia.CUDA --source winget
 If you are using a CUDA 12 `llama.cpp` archive, specify a CUDA 12 version shown by `winget show Nvidia.CUDA --versions`.
 
 ```powershell
-winget install Nvidia.CUDA --source winget --version 12.x.x
+winget install Nvidia.CUDA --source winget --version 12.9
 ```
-
-Replace `12.x.x` with an actual CUDA 12 version listed by winget.
 
 After installation, restart Windows Terminal and check the installed version:
 
