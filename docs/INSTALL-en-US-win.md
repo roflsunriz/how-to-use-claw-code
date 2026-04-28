@@ -1,4 +1,4 @@
-# How to Use Claw Code on Windows
+# How to install Claw Code on Windows
 
 This guide explains how to install and run Claw Code on Windows.
 It is written for beginners and uses Windows Terminal and PowerShell.

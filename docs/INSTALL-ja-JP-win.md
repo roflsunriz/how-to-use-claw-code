@@ -1,4 +1,4 @@
-# WindowsでClaw Codeを使う方法
+# WindowsでClaw Codeをインストールする方法
 
 このガイドでは、WindowsでClaw Codeをインストールして実行する手順を説明します。
 初心者向けに、Windows TerminalとPowerShellを使って進めます。

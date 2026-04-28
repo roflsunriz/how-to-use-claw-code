@@ -13,8 +13,8 @@ site_url: https://roflsunriz.github.io/how-to-use-claw-code/
 nav:
   - Home: index.md
   - Install:
-      - Install(English): Install-en-US-win.md
-      - インストール(日本語): Install-ja-JP-win.md
+      - Install(English): INSTALL-en-US-win.md
+      - インストール(日本語): INSTALL-ja-JP-win.md
   - Providers:
       - OpenRouter:
           - OpenRouter(English): OPENROUTER-en-US.md
