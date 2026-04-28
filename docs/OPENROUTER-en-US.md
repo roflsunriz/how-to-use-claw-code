@@ -84,6 +84,21 @@ For coding tasks, consider these categories:
 - Fast and low-cost models for small edits or quick questions.
 - Large-context models for reading bigger repositories.
 
+### Recommended model selection
+
+Based on the research notes in `deep-research/openrouter-models.md`, these are the most practical choices for Claw Code:
+
+- **Best overall split setup**:
+  - Hard tasks: `anthropic/claude-sonnet-4.6`
+  - Easy to medium tasks: `google/gemini-3-flash-preview`
+- **Lowest-cost split setup**:
+  - Hard tasks: `deepseek/deepseek-v4-pro`
+  - Easy tasks: `deepseek/deepseek-v4-flash`
+- **Single-model choice for general use**: `google/gemini-3-flash-preview`
+- **Single-model choice for safer hard tasks**: `anthropic/claude-sonnet-4.6`
+
+If you need a default today, start with `google/gemini-3-flash-preview`. It balances coding quality, long context, speed, and cost well. If your work is mostly complex refactors, root-cause analysis, or multi-file debugging, choose `anthropic/claude-sonnet-4.6` instead. For pure cost efficiency, the DeepSeek split is the strongest option, but it is more aggressive and may be less conservative for sensitive or production work.
+
 ### Example model names
 
 Model availability and names can change, so always confirm the current model slug on OpenRouter before using it.

@@ -84,6 +84,21 @@ OpenRouterのモデルページで、次の点を確認します。
 - 小さな修正や質問に向いた高速・低価格モデル。
 - 大きめのリポジトリを読むための長コンテキストモデル。
 
+### おすすめのモデル選定
+
+`deep-research/openrouter-models.md` の調査結果を踏まえると、Claw Codeでは次の構成が実用的です。
+
+- **総合的におすすめの split 構成**
+  - 難しいタスク: `anthropic/claude-sonnet-4.6`
+  - 簡単〜中程度のタスク: `google/gemini-3-flash-preview`
+- **最安重視の split 構成**
+  - 難しいタスク: `deepseek/deepseek-v4-pro`
+  - 簡単タスク: `deepseek/deepseek-v4-flash`
+- **単一モデルで使うなら**: `google/gemini-3-flash-preview`
+- **難しいタスクを安全側で回すなら**: `anthropic/claude-sonnet-4.6`
+
+迷ったら、まずは `google/gemini-3-flash-preview` から始めるのがおすすめです。コーディング品質、長コンテキスト、速度、コストのバランスが良いからです。複雑なリファクタリング、原因調査、複数ファイルにまたがるデバッグが多いなら、`anthropic/claude-sonnet-4.6` のほうが扱いやすいです。コスト効率を最優先するなら DeepSeek の split 構成が最強ですが、保守的な運用や機微なコードでは少し攻めた選択になります。
+
 ### モデル名の例
 
 モデルの提供状況や名前は変わる可能性があるため、利用前にOpenRouter上で現在の正確なモデルslugを確認してください。
