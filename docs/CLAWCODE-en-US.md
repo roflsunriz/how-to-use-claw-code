@@ -18,7 +18,7 @@ This document provides a concise overview and important notes about Claw Code.
 
 ## Notes and Caveats
 
-- Compared to OpenCode or Cline, Claw Code still has rough edges; you may need manual adjustments for operation and compatibility.
+- Compared to OpenCode or Codex CLI, Claw Code still has rough edges; you may need manual adjustments for operation and compatibility.
 - Note that this project's source code is independently implemented and not a copy of the leaked source code.
 
 ---
