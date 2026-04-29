@@ -4,7 +4,7 @@ This document provides a concise overview and important notes about Claw Code.
 
 ## Overview
 
-- Claw Code is a clean-room implementation inspired by the leaked Claude Code. The repository is implemented independently and is not a copy of the leaked source.
+- [Claw Code](https://github.com/ultraworkers/claw-code) is a clean-room implementation inspired by the leaked Claude Code. The repository is implemented independently and is not a copy of the leaked source.
 - There is Python source code in the GitHub repository, but it serves mainly as a blueprint (prototype/reference). The primary implementation is written in Rust.
 
 ## Distribution & Build
