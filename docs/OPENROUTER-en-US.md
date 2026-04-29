@@ -90,8 +90,8 @@ These are the most practical choices for Claw Code:
 
 - **Best overall split setup**:
   - Most Hardest tasks: `anthropic/claude-opus-4.6` / `openai/gpt-5.5-pro`
-  - Hard tasks: `anthropic/claude-sonnet-4.6`
-  - Easy to medium tasks: `google/gemini-3-flash-preview`
+  - Hard tasks: `anthropic/claude-sonnet-4.6` / `openai/gpt-5.4`
+  - Easy to medium tasks: `google/gemini-3-flash-preview` / `openai/gpt-5-mini`
 - **Lowest-cost split setup**:
   - Most Hardest tasks: `x-ai/grok-4.20-multi-agent`
   - Hard tasks: `deepseek/deepseek-v4-pro`
@@ -115,7 +115,9 @@ google/gemini-3-flash-preview
 deepseek/deepseek-v4-pro
 deepseek/deepseek-v4-flash
 openai/gpt-5.5
+openai/gpt-5.4
 openai/gpt-5.4-mini
+openai/gpt-5-mini
 google/gemini-3.1-pro-preview
 qwen/qwen3.6-plus
 moonshotai/kimi-k2.6

@@ -90,8 +90,8 @@ Claw Codeでは次の構成が実用的です。
 
 - **総合的におすすめの split 構成**
   - 最も難しいタスク: `anthropic/claude-opus-4.6` / `openai/gpt-5.5-pro`
-  - 難しいタスク: `anthropic/claude-sonnet-4.6`
-  - 簡単〜中程度のタスク: `google/gemini-3-flash-preview`
+  - 難しいタスク: `anthropic/claude-sonnet-4.6` / `openai/gpt-5.4`
+  - 簡単〜中程度のタスク: `google/gemini-3-flash-preview` / `openai/gpt-5-mini`
 - **最安重視の split 構成**
   - 最も難しいタスク: `x-ai/grok-4.20-multi-agent`
   - 難しいタスク: `deepseek/deepseek-v4-pro`
@@ -115,7 +115,9 @@ google/gemini-3-flash-preview
 deepseek/deepseek-v4-pro
 deepseek/deepseek-v4-flash
 openai/gpt-5.5
+openai/gpt-5.4
 openai/gpt-5.4-mini
+openai/gpt-5-mini
 google/gemini-3.1-pro-preview
 qwen/qwen3.6-plus
 moonshotai/kimi-k2.6
