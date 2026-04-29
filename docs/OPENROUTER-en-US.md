@@ -228,7 +228,7 @@ if ($env:OPENAI_API_KEY) { "OPENAI_API_KEY is set" } else { "OPENAI_API_KEY is n
 
 The model slug may be incorrect or outdated.
 
-1. Open the OpenRouter model page.
+1. Open the [OpenRouter model](https://openrouter.ai/models) page.
 2. Copy the exact model slug.
 3. Pass that value to `--model`.
 
