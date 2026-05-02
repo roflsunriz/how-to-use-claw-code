@@ -230,6 +230,8 @@ Example search keywords for Hugging Face:
 
 For a first test, `Qwen2.5-Coder-7B-Instruct-GGUF` with `Q4_K_M` quantization is usually the easiest safe option. If Claw Code repeatedly produces malformed output, invents nonexistent commands, or cannot proceed with terminal-based work, move up to `Qwen2.5-Coder-14B-Instruct-GGUF` or `Devstral-Small-2507`.
 
+In my tests, `unsloth/gpt-oss-20b-Q8_0.gguf` handled terminal-based workflows best.
+
 ## 7. Download a model with hf
 
 Create a models directory:
