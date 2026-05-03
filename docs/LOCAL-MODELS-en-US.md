@@ -154,6 +154,9 @@ python -m pip --version
 
 If `python` is not found, restart Windows Terminal again. If it is still not found, check that Python was added to your `Path`.
 
+!!! warning
+    Do not install the latest Python version. Some required packages may not have adopted the latest Python yet, which can cause dependency resolution failures and prevent installation.
+
 ## 4. Install hf
 
 `hf` is included in the `huggingface_hub` Python package.

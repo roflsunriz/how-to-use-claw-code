@@ -154,6 +154,9 @@ python -m pip --version
 
 `python`が見つからない場合は、もう一度Windows Terminalを再起動してください。それでも見つからない場合は、Pythonが`Path`に追加されているか確認してください。
 
+!!! warning
+    最新のPythonをインストールしないでください。必要なパッケージの中には最新のPythonに未対応のものがあり、依存関係の解決に失敗してインストールできない場合があります。
+
 ## 4. hfをインストールする
 
 `hf`はPythonパッケージの`huggingface_hub`に含まれています。
