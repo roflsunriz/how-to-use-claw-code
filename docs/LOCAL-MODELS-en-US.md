@@ -274,7 +274,27 @@ For convenience, you can rename the model file to `model.gguf`:
 Rename-Item .\devstral-small-2507-q4km\Devstral-Small-2507-Q4_K_M.gguf model.gguf
 ```
 
-## 8. Start llama-server.exe
+## 8. Understand the llama.cpp options
+
+The options below are the common `llama-server.exe` tuning knobs you are most likely to adjust. Start from a known-good baseline, then change the values if the model is too random, too repetitive, too slow, or too large for your GPU.
+
+| Option | What it controls | Practical guidance |
+| --- | --- | --- |
+| `--temp` | Randomness of the output | Lower values are more deterministic. `0` is fully deterministic, while values around `0.7` to `0.8` are common for chat-style use. |
+| `--top-p` | Nucleus sampling cutoff | Lower values make the output more conservative. `1.0` disables the filter; values around `0.9` to `0.95` are common. |
+| `--top-k` | Limits the number of candidate tokens | Lower values reduce variety and can make output more focused. `0` disables top-k filtering. |
+| `--presence-penalty` | Penalizes tokens that have already appeared | Use this to reduce repeated topics or phrases. Keep it at `0` if you do not need extra variety. |
+| `--repeat-penalty` | Penalizes recently repeated tokens | Values slightly above `1.0`, such as `1.05`, can reduce looping or repeated wording. |
+| `--ctx-size` | Context window size | Larger values let the model read more conversation and files, but use more VRAM or RAM. |
+| `--n-gpu-layers` | Number of layers offloaded to the GPU | Use `all`, `auto`, or a numeric value. Increase it if you have more VRAM available. |
+| `--n-cpu-moe` | Number of Mixture-of-Experts layers kept on CPU | Only relevant for MoE models. Change it if your build or model benefits from keeping some MoE work on CPU. |
+| `--jinja` / `--no-jinja` | Enables or disables the Jinja chat template engine | Keep Jinja enabled for most chat models unless the model requires a custom prompt format. |
+| `--cache-type-k` | KV cache data type | Lower-precision cache types reduce memory use. `f16` is the safest default, while `q4_0` or `q4_1` can save memory. |
+| `--sleep-idle-seconds` | Automatically unloads the model after inactivity | Set `-1` to disable. Use a positive value if you want memory freed after the server sits idle. |
+
+These options are not all required for every model. Tune the ones that match the problem you are solving.
+
+## 9. Start llama-server.exe
 
 Move to the llama.cpp directory:
 
@@ -306,7 +326,7 @@ Keep this PowerShell window open while using the local model.
 !!! tip
     If your PC runs out of memory, use a smaller model, a lighter quantization such as `Q4_K_M` or `Q3_K_M`, or reduce the context size with `-c 4096`.
 
-## 9. Test the local OpenAI-compatible endpoint
+## 10. Test the local OpenAI-compatible endpoint
 
 Open another PowerShell window and run:
 
@@ -320,7 +340,7 @@ Invoke-RestMethod `
 
 If the server is working, you should receive a response from the local model.
 
-## 10. Connect Claw Code to llama-server.exe
+## 11. Connect Claw Code to llama-server.exe
 
 In the PowerShell window where you want to run Claw Code, set OpenAI-compatible environment variables:
 
