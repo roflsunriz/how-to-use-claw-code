@@ -2,7 +2,7 @@
 
 Claw Code の導入・利用方法をまとめたドキュメントリポジトリです。
 
-MkDocs で構成されたサイトを、英語版と日本語版の両方で管理しています。公開サイトは GitHub Pages で配信しています。
+Zensical で構成されたサイトを、英語版と日本語版の両方で管理しています。公開サイトは GitHub Pages で配信しています。
 
 ## ドキュメント
 
@@ -31,7 +31,7 @@ Python が使える環境で、次を実行します。
 
 ```powershell
 python -m pip install -r requirements.txt
-python -m mkdocs serve --livereload --dirty
+python -m zensical serve
 ```
 
 ブラウザで `http://127.0.0.1:8000/` を開くと、ローカルプレビューを確認できます。
@@ -39,7 +39,7 @@ python -m mkdocs serve --livereload --dirty
 静的サイトとしてビルドする場合は、次を実行します。
 
 ```powershell
-python -m mkdocs build --strict
+python -m zensical build --strict
 ```
 
 ビルド結果は `site/` に出力されます。

@@ -17,3 +17,4 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 
 - 作業前にこのリポジトリの `README.md`、設定ファイル、CI 定義を確認する。
 - 追加のプロジェクト固有ルールが必要になった場合は、このファイルに追記する。
+- サイトの strict ビルドは `python -m zensical build --strict` を使う。既存の `mkdocs.yml` を Zensical が読み、classic テーマで公開する。

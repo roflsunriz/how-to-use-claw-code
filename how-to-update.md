@@ -1,5 +1,9 @@
 # 更新手順
 
+## 文書サイトの更新
+
+`docs/` を編集したら、`python -m pip install -r requirements.txt` と `python -m zensical build --strict` を実行し、英語版と日本語版のページを確認する。Pages も同じビルドを使う。問題が出た場合は変更コミットを revert し、Pages ワークフローを再実行する。
+
 ## Dependabot PR の更新
 
 前提は `.github/dependabot.yml` と PR 用 CI（CI）です。更新 PR の head SHA と `gh pr checks <PR番号>` の結果を確認してください。patch／minor は全チェック成功後に自動取り込みされます。初回 CI 失敗は failed jobs のみを 1 回再実行し、再失敗した PR は残して手動で修正します。
