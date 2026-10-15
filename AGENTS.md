@@ -13,8 +13,12 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 4. 全文を読了するまで、ローカル `AGENTS.md` だけを根拠に作業を続けてはならない。読了後は `COMMON-AGENTS.md` を最優先の指針とし、読了直後の最初の進捗報告で全文を読了したことを明示する。
 このファイルでは `how-to-use-claw-code` 固有の補足だけを記載する。
 
-## プロジェクト固有情報
+## 作業義務
 
-- 作業前にこのリポジトリの `README.md`、設定ファイル、CI 定義を確認する。
-- 追加のプロジェクト固有ルールが必要になった場合は、このファイルに追記する。
-- サイトの strict ビルドは `python -m zensical build --strict` を使う。既存の `mkdocs.yml` を Zensical が読み、classic テーマで公開する。
+- 作業前にREADME、設定、CIとfindings.mdを確認する。プロジェクト固有の知見はfindings.mdへ記録する。
+
+## プロジェクト固有の知見
+
+- [COMMON-AGENTS.md](COMMON-AGENTS.md) を最優先とし、作業前に [findings.md](findings.md) も先頭から末尾まで全文読む。出力省略や読取り失敗を読了扱いしない。
+- 実現手段・環境差・明示的な例外・再利用する調査知見はfindings.mdへ随時記録する。変更履歴はCHANGELOG.md、実施した検証と未検証事項はverification.mdに残す。
+- ユーザーの禁止・承認条件、秘密情報と既存データの保護、未コミット変更を戻さない義務を弱めない。

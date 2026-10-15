@@ -17,65 +17,19 @@ Zensical で構成されたサイトを、英語版と日本語版の両方で�
 
 ## サイト構成
 
-`mkdocs.yml` のナビゲーションは次の通りです。
-
-- Home
-- Claw Code
-- Install
-- Providers
-- Others
+詳細は [findings.md](findings.md#readme-1) に移しました。
 
 ## ローカルで確認する
 
-Python が使える環境で、次を実行します。
-
-```powershell
-python -m pip install -r requirements.txt
-python -m zensical serve
-```
-
-ブラウザで `http://127.0.0.1:8000/` を開くと、ローカルプレビューを確認できます。
-
-静的サイトとしてビルドする場合は、次を実行します。
-
-```powershell
-python -m zensical build --strict
-```
-
-ビルド結果は `site/` に出力されます。
+詳細は [findings.md](findings.md#readme-2) に移しました。
 
 ## GitHub Pages で公開する
 
-このリポジトリには、GitHub Pages へ自動デプロイするワークフローが含まれています。
-
-- ワークフロー: `.github/workflows/deploy-mkdocs.yml`
-- 対象ブランチ: `main`
-- デプロイ方式: GitHub Pages Actions
-
-GitHub 側では、リポジトリの `Settings` -> `Pages` で `Build and deployment` の `Source` を `GitHub Actions` に設定してください。
+詳細は [findings.md](findings.md#readme-3) に移しました。
 
 ## リポジトリ構成
 
-```txt
-.
-├── docs/
-│   ├── CLAWCODE-en-US.md
-│   ├── CLAWCODE-ja-JP.md
-│   ├── INSTALL-en-US-win.md
-│   ├── INSTALL-ja-JP-win.md
-│   ├── OPENROUTER-en-US.md
-│   ├── OPENROUTER-ja-JP.md
-│   ├── LOCAL-MODELS-en-US.md
-│   ├── LOCAL-MODELS-ja-JP.md
-│   ├── CODING-AGENTS-en-US.md
-│   ├── CODING-AGENTS-ja-JP.md
-│   └── index.md
-├── .github/workflows/deploy-mkdocs.yml
-├── mkdocs.yml
-├── requirements.txt
-├── README.md
-└── LICENSE
-```
+詳細は [findings.md](findings.md#readme-4) に移しました。
 
 ## ライセンス
 
@@ -83,4 +37,4 @@ GitHub 側では、リポジトリの `Settings` -> `Pages` で `Build and deplo
 
 ## 依存更新の自動処理
 
-Dependabot は対象の依存関係を毎週確認します。patch／minor 更新は PR のチェック（CI）が成功した後に自動で squash merge されます。CI の失敗ジョブは 1 回だけ再実行します。再失敗した PR は残して手動で修正します。major 更新は手動で確認します。マージ後はデプロイ workflow を明示起動します。
+詳細は [findings.md](findings.md#readme-5) に移しました。
