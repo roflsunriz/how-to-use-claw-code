@@ -6,6 +6,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- READMEでfindings.mdへの案内に置き換わっていた本文を復元し、構成・開発・検証の説明をREADMEから直接読めるようにした。移動後のREADME更新は保持した。
+
+
 ### Changed
 
 - GitHub Actions の月間利用時間を抑えるため、Dependabot version update と自動マージを毎週・即時処理から毎月28日（Asia/Tokyo）の月末一括処理へ変更した。
